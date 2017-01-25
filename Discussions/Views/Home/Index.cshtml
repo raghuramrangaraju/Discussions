@@ -1,0 +1,187 @@
+﻿@model IEnumerable<Discussions.Models.Question>
+@{
+    ViewBag.Title = "Structured discussions-Home";
+}
+<style>
+    .votes {
+        display: inline-block;
+        height: 38px;
+        min-width: 38px;
+        margin: 0 3px 0 0;
+        font-size: 11px;
+        color: #848d95;
+        padding: 5px 5px 6px 5px;
+        text-align: center;
+    }
+
+    .mini-counts {
+        margin-bottom: 2px;
+    }
+
+    .mini-counts {
+        font-size: 17px;
+        font-weight: 300;
+        color: #6a737c;
+        margin-bottom: 4px;
+    }
+</style>
+<div class="content-wrapper" style="min-height: 388px;">
+    <!-- Content Header (Page header) -->
+    @*<section class="content-header">
+            <h1>Top Questions</h1>
+        </section>*@
+    <!-- Main content -->
+    <section class="content">
+        <div class="nav-tabs-custom">
+            <div class="row">
+                <div class="col-lg-10">
+                    <div class="box box-primary">
+                        <div class="box-header with-border">
+                            <div class="row">
+                                <div class="col-lg-2">
+                                    <h3 class="box-title">Top Questions</h3>
+                                </div>
+                                <div class="col-lg-8">
+                                    @Html.TextBox("askquestion", "", new { @class = "form-control", placeholder = "Ask question", id = "askquestion" })
+                                </div>
+                                <div class="col-lg-2">
+                                    <span><button class="btn btn-success" onclick="askquestion()">Ask question</button></span>
+                                </div>
+                            </div>
+
+                        </div>
+                        <!-- /.box-header -->
+                        <div class="box-body">
+                            <ul class="products-list product-list-in-box" id="question">
+                                @foreach (var item in Model)
+                                {
+                                    <li class="item">
+                                        <div class="row">
+                                            <div class="col-lg-12 col-sm-4">
+                                                <div class="col-lg-4 col-xs-4">
+                                                    <div class="col-lg-2 col-xs-1">
+                                                        <div class="votes">
+                                                            <div class="mini-counts"><span title="0 votes">0</span></div>
+                                                            <div>votes</div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-2 col-xs-1">
+                                                        <div class="votes">
+                                                            <div class="mini-counts"><span title="0 answers">0</span></div>
+                                                            <div>answers</div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-2 col-xs-1">
+                                                        <div class="votes">
+                                                            <div class="mini-counts"><span title="5 views">5</span></div>
+                                                            <div>views</div>
+                                                        </div>
+                                                    </div>
+                                                    @*<img src="dist/img/default-50x50.gif" alt="Product Image">*@
+                                                </div>
+                                                <div class="col-lg-8">
+                                                    <a href="../home/claim?QuestionId=+@item.QuestionId" class="product-title">
+                                                        @item.Question1
+                                                    </a>
+                                                    <span class="pull-right">asked @item.CreateAt.Value by @item.User.UserName </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                }
+                            </ul>
+                        </div>
+                        <!-- /.box-body -->
+                    </div>
+                </div>
+                <div class="col-lg-2">
+                    @*<p style="background-color:black">col-lg-2</p>*@
+                </div>
+            </div>
+        </div>
+        <!-- END TYPOGRAPHY -->
+    </section>
+    <!-- /.content -->
+</div>
+<div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog ">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Feel free to ask question </h4>
+            </div>
+            <div class="modal-body">
+                <div class="">
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <div class="box box-primary">
+                                <div class="form-group">
+
+
+                                    @Html.TextBox("question", "", new { @class = "form-control" })
+                                </div>
+                                <!-- /.box-header -->
+                                <!-- /.box-body -->
+                            </div>
+                            <!-- /.box -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-info" onclick="checkresult()">Check Result </button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    function addquestion() {
+        //    $("#modalhead").empty();
+        //  $("#modalbody").empty();
+        $('#myModal').modal('show');
+    }
+    function askquestion() {
+        var question = $('#askquestion').val();
+        if (question != "") {
+            $.ajax({
+                type: "POST",
+                url: "../home/askquestion",
+                data: { question: question },
+                dataType: "json",
+                beforeSend: function (xhr) {
+                    //$('#LoadingImage').show();
+                },
+                success: function (data) {
+                    debugger;
+                    if (data) {
+                        var newquestion ="<li class=\"item\"><div class=\"row\"><div class=\"col-lg-12 col-sm-4\"><div class=\"col-lg-4 col-xs-4\"><div class=\"col-lg-2 col-xs-1\">";
+                        newquestion += "<div class=\"votes\"><div class=\"mini-counts\"><span title=\"0 votes\">0</span></div><div>votes</div></div></div><div class=\"col-lg-2 col-xs-1\">";
+                        newquestion += "<div class=\"votes\"><div class=\"mini-counts\"><span title=\"0 answers\">0</span></div><div>answers</div></div></div><div class=\"col-lg-2 col-xs-1\"><div class=\"votes\">";
+                        newquestion += "<div class=\"mini-counts\"><span title=\"5 views\">5</span></div><div>views</div></div></div>";
+                        newquestion += "</div><div class=\"col-lg-8\"><a href=\"../home/claim?QuestionId=+" + data.QuestionId + "\" class=\"product-title\">" + question + "</a><span class=\"pull-right\">asked Value by UserName </span></div>";
+                        newquestion += "</div></div></li>";
+                        $("#question").prepend(newquestion);
+                        //alert("Save Successfully");
+                    }
+                    else {
+                        alert("Error")
+                    }
+                },
+                error: function (result) {
+                    debugger;
+                    alert("Error");
+                },
+                complete: function (xhr) {
+
+                },
+
+            });
+        }
+        else {
+            alert("Please enter some value");
+        }
+    }
+</script>
