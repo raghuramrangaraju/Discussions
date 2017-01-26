@@ -25,11 +25,32 @@ namespace Discussions.Controllers
 
             return View();
         }
+        [HttpGet]
+        public ActionResult Claim(int QuestionId = 14) {
+            ViewBag.questionid = QuestionId;
+            //  var claim = context.Claims.Where(x => x.QuestionId == QuestionId).ToList();
+            ViewBag.yestance = context.Claims.Where(x => x.QuestionId == QuestionId && x.Status == true).ToList();
+            ViewBag.notance = context.Claims.Where(x => x.QuestionId == QuestionId && x.Status == false).ToList();
 
-        public ActionResult Claim(int QuestionId = 0) {
 
             return View();
         }
+        [HttpPost]
+        public ActionResult Claim(Claim claim)
+        {
+            Claim newclaim = new Claim();
+            newclaim.Claim1 = claim.Claim1;
+            newclaim.CreatedAt = DateTime.Now;
+            newclaim.Evidence = claim.Evidence;
+            newclaim.Source = claim.Source;
+            newclaim.Status = false; // For no stance and yes for new stance
+            newclaim.UserId = 1; // Its has to be changed 
+            newclaim.QuestionId = 14;
+            context.Claims.Add(newclaim);
+            context.SaveChanges();
+            return RedirectToAction("Claim");
+        }
+
         public ActionResult Contact()
         {
             ViewBag.Message = "Your contact page.";
@@ -51,7 +72,7 @@ namespace Discussions.Controllers
             return Json(newdata, JsonRequestBehavior.AllowGet);
         }
 
-        public JsonResult submitclaim() {
+        public JsonResult submitclaim(string question="") {
 
             return Json(1, JsonRequestBehavior.AllowGet);
         }
