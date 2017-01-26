@@ -13,8 +13,8 @@ namespace Discussions.Controllers
         StructuredDiscussionsEntities context = new StructuredDiscussionsEntities();
         public ActionResult Index()
         {
-           var questions = context.Questions.ToList().OrderByDescending(x=>x.CreateAt);
-           
+            var questions = context.Questions.ToList().OrderByDescending(x => x.CreateAt);
+
 
             return View(questions);
         }
@@ -26,13 +26,12 @@ namespace Discussions.Controllers
             return View();
         }
         [HttpGet]
-        public ActionResult Claim(int QuestionId = 14) {
+        public ActionResult Claim(int QuestionId = 0)
+        {
             ViewBag.questionid = QuestionId;
             //  var claim = context.Claims.Where(x => x.QuestionId == QuestionId).ToList();
             ViewBag.yestance = context.Claims.Where(x => x.QuestionId == QuestionId && x.Status == true).ToList();
             ViewBag.notance = context.Claims.Where(x => x.QuestionId == QuestionId && x.Status == false).ToList();
-
-
             return View();
         }
         [HttpPost]
@@ -43,12 +42,12 @@ namespace Discussions.Controllers
             newclaim.CreatedAt = DateTime.Now;
             newclaim.Evidence = claim.Evidence;
             newclaim.Source = claim.Source;
-            newclaim.Status = false; // For no stance and yes for new stance
+            newclaim.Status = claim.Status; // For no stance and yes for new stance
             newclaim.UserId = 1; // Its has to be changed 
-            newclaim.QuestionId = 14;
+            newclaim.QuestionId = claim.QuestionId;
             context.Claims.Add(newclaim);
             context.SaveChanges();
-            return RedirectToAction("Claim");
+            return RedirectToAction("Claim", new { QuestionId = newclaim.QuestionId });
         }
 
         public ActionResult Contact()
@@ -59,7 +58,7 @@ namespace Discussions.Controllers
         }
 
 
-        public JsonResult askquestion(string question="")
+        public JsonResult askquestion(string question = "")
         {
             //To check the user first and get the username 
             Question newdata = new Question();
@@ -72,7 +71,8 @@ namespace Discussions.Controllers
             return Json(newdata, JsonRequestBehavior.AllowGet);
         }
 
-        public JsonResult submitclaim(string question="") {
+        public JsonResult submitclaim(string question = "")
+        {
 
             return Json(1, JsonRequestBehavior.AllowGet);
         }
