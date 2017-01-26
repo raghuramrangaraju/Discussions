@@ -1,4 +1,5 @@
-﻿@{
+﻿@model Discussions.Models.Claim
+@{
     ViewBag.Title = "Claim";
 }
 <div class="content-wrapper" style="min-height: 388px;">
@@ -29,22 +30,23 @@
                                         <th>Rating</th>
                                     </tr>
                                     <tr>
-                                        <td colspan="2" class="stance_no"><span class="glyphicon glyphicon-thumbs-down top_alignment"></span> STANCE: NO &nbsp;&nbsp;<button class="btn btn-danger glyphicon glyphicon-plus-sign small_button" data-toggle="tooltip" title="Add your claim" onclick="addnostance()"></button></td>
+                                        <td colspan="2" class="stance_no"><span class="glyphicon glyphicon-thumbs-down top_alignment"></span> STANCE: NO &nbsp;&nbsp;<button class="btn btn-danger glyphicon glyphicon-plus-sign small_button" data-toggle="tooltip" title="Add your claim" onclick="addmodal(0)"></button></td>
                                     </tr>
-                                    <tr>
-                                        <td>
-                                            <button class="accordion"> Only 10% Neurons used fallacy</button>
-                                            <div class="panelfor">
-                                                <p>
-                                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi
-                                                    ut aliquip ex ea commodo consequat.
+                                    @foreach (var item in ViewBag.notance as List<Discussions.Models.Claim>)
+                                    {
+                                        <tr>
+                                            <td>
+                                                <button class="accordion"> @item.Claim1</button>
+                                                <div class="panelfor">
+                                                    <p>
+                                                        @item.Evidence
                                                 </p>
                                                 <div class="col-lg-3">
                                                     <span class="glyphicon glyphicon-thumbs-up top_alignment cursor" data-toggle="tooltip" title="I like this"></span> &nbsp; &nbsp;
                                                     <span class="glyphicon glyphicon-thumbs-down top_alignment cursor" data-toggle="tooltip" title="I dislike this"></span>
                                                 </div>
-                                                <div class="col-lg-3"> <span><b>Source: </b> </span>[Link]</div>
-                                                <div class="col-lg-3"> <span><b>Date: </b> </span>Jan 18 2017 at 10:57</div>
+                                                <div class="col-lg-3"> <span><b>Source: </b> </span>@item.Source</div>
+                                                <div class="col-lg-3"> <span><b>Date: </b> </span>@item.CreatedAt</div>
                                             </div>
                                         </td>
                                         <td Width="10%">
@@ -53,76 +55,36 @@
                                             </div>
                                         </td>
                                     </tr>
+                                    }
                                     <tr>
                                         <td colspan="2" class="stance_yes">
-                                            <span class="glyphicon glyphicon-thumbs-up top_alignment"></span> STANCE: YES &nbsp;&nbsp;<button class="btn btn-success glyphicon glyphicon-plus-sign small_button" data-toggle="tooltip" title="Add your claim" />
+                                            <span class="glyphicon glyphicon-thumbs-up top_alignment"></span> STANCE: YES &nbsp;&nbsp;<button class="btn btn-success glyphicon glyphicon-plus-sign small_button" data-toggle="tooltip" title="Add your claim" onclick="addmodal(1)" />
                                         </td>
                                     </tr>
-                                    <tr>
-                                        <td>
-                                            <button class="accordion">  We only use 10% of our potential</button>
-                                            <div class="panelfor">
-                                                <p>
-                                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi
-                                                    ut aliquip ex ea commodo consequat.
-                                                </p>
-                                                <div class="col-lg-3">
-                                                    <span class="glyphicon glyphicon-thumbs-up top_alignment cursor" data-toggle="tooltip" title="I like this"></span> &nbsp; &nbsp;
-                                                    <span class="glyphicon glyphicon-thumbs-down top_alignment cursor" data-toggle="tooltip" title="I dislike this"></span>
+                                    @foreach (var item in ViewBag.yestance as List<Discussions.Models.Claim>)
+                                    {
+                                        <tr>
+                                            <td>
+                                                <button class="accordion"> @item.Claim1</button>
+                                                <div class="panelfor">
+                                                    <p>
+                                                        @item.Evidence
+                                                    </p>
+                                                    <div class="col-lg-3">
+                                                        <span class="glyphicon glyphicon-thumbs-up top_alignment cursor" data-toggle="tooltip" title="I like this"></span> &nbsp; &nbsp;
+                                                        <span class="glyphicon glyphicon-thumbs-down top_alignment cursor" data-toggle="tooltip" title="I dislike this"></span>
+                                                    </div>
+                                                    <div class="col-lg-3"> <span><b>Source: </b> </span>@item.Source</div>
+                                                    <div class="col-lg-3"> <span><b>Date: </b> </span>@item.CreatedAt</div>
                                                 </div>
-                                                <div class="col-lg-3"> <span><b>Source: </b> </span>[Link]</div>
-                                                <div class="col-lg-3"> <span><b>Date: </b> </span>Jan 18 2017 at 10:57</div>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="progress progress-xs progress-striped active">
-                                                <div class="progress-bar progress-bar-success" style="width: 90%"></div>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <button class="accordion"> 10% of our neurons actively fire</button>
-                                            <div class="panelfor">
-                                                <p>
-                                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi
-                                                    ut aliquip ex ea commodo consequat.
-                                                </p>
-                                                <div class="col-lg-3">
-                                                    <span class="glyphicon glyphicon-thumbs-up top_alignment cursor" data-toggle="tooltip" title="I like this"></span> &nbsp; &nbsp;
-                                                    <span class="glyphicon glyphicon-thumbs-down top_alignment cursor" data-toggle="tooltip" title="I dislike this"></span>
+                                            </td>
+                                            <td Width="10%">
+                                                <div class="progress progress-xs">
+                                                    <div class="progress-bar progress-bar-red" style="width: 70%"></div>
                                                 </div>
-                                                <div class="col-lg-3"> <span><b>Source: </b> </span>[Link]</div>
-                                                <div class="col-lg-3"> <span><b>Date: </b> </span>Jan 18 2017 at 10:57</div>
-                                            </div>
-                                        <td>
-                                            <div class="progress progress-xs progress-striped active">
-                                                <div class="progress-bar progress-bar-success" style="width: 95%"></div>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <button class="accordion">  90% of our potential is untapped</button>
-                                            <div class="panelfor">
-                                                <p>
-                                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi
-                                                    ut aliquip ex ea commodo consequat.
-                                                </p>
-                                                <div class="col-lg-3">
-                                                    <span class="glyphicon glyphicon-thumbs-up top_alignment cursor" data-toggle="tooltip" title="I like this"></span> &nbsp; &nbsp;
-                                                    <span class="glyphicon glyphicon-thumbs-down top_alignment cursor" data-toggle="tooltip" title="I dislike this"></span>
-                                                </div>
-                                                <div class="col-lg-3"> <span><b>Source: </b> </span>[Link]</div>
-                                                <div class="col-lg-3"> <span><b>Date: </b> </span>Jan 18 2017 at 10:57</div>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="progress progress-xs progress-striped active">
-                                                <div class="progress-bar progress-bar-success" style="width: 100%"></div>
-                                            </div>
-                                        </td>
-                                    </tr>
+                                            </td>
+                                        </tr>
+                                    }
                                 </tbody>
                             </table>
                         </div>
@@ -149,7 +111,7 @@
     </section>
     <!-- /.content -->
 </div>
-
+@Html.BeginForm(){
 <div class="modal fade" id="myModal" role="dialog">
     <div class="modal-dialog ">
         <!-- Modal content-->
@@ -165,34 +127,37 @@
                             <div class="box box-primary">
                                 <div class="form-group">
                                     <label>Claim</label>
-                                    @Html.TextBox("claim", "", new { @class = "form-control" })
+                                    @Html.TextBoxFor(x => x.Claim1, new { @class = "form-control" })
                                 </div>
                                 <div class="form-group">
                                     <label>Evidence</label>
-                                    @Html.TextBox("evidence", "", new { @class = "form-control" })
+                                    @Html.TextAreaFor(x => x.Evidence, new { @class = "form-control" })
                                 </div>
                                 <div class="form-group">
                                     <label>source</label>
-                                    @Html.TextBox("source", "", new { @class = "form-control" })
+                                    @Html.TextBoxFor(x => x.Source, new { @class = "form-control" })
+
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+            @{int dc = ViewBag.questionid;}
+            @Html.Hidden("QuestionId", dc, new { @class = "form-control" })
+            @Html.Hidden("Status", "", new { @class = "form-control" ,id="status"})
             <div class="modal-footer">
-                <button type="button" class="btn btn-info" onclick="submitclaim()">Submit</button>
+                <button type="submit" class="btn btn-info">Submit</button>
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
             </div>
         </div>
     </div>
 </div>
-
+}
 
 <script type="text/javascript">
     var acc = document.getElementsByClassName("accordion");
     var i;
-
     for (i = 0; i < acc.length; i++) {
         acc[i].onclick = function () {
             this.classList.toggle("active");
@@ -207,16 +172,25 @@
     $(document).ready(function () {
         $('[data-toggle="tooltip"]').tooltip();
     });
-    var stance = "";
-    function addnostance() {
-        stance = "no";
+    
+    function addmodal(i) {
+        var status = 1;
+        debugger;
+        if (i == 1) {
+
+        }
+        else {
+            status = 0;
+        }
+        $("#Status").val(status);
         $('#myModal').modal('show');
     }
     function submitclaim() {
+        var question = "";
         var status = false;
         if (stance == "no") {
             status = false;
-        }else {
+        } else {
             status = true;
         }
         $.ajax({
@@ -230,12 +204,13 @@
             success: function (data) {
                 debugger;
                 if (data) {
+                    $('#myModal').modal('hide');
                     var newtd = "<tr><td><button class=\"accordion\"> Only 10% Neurons used fallacy</button><div class=\"panelfor\"><p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisiut aliquip ex ea commodo consequat.";
                     newtd += "</p><div class=\"col-lg-3\"><span class=\"glyphicon glyphicon-thumbs-up top_alignment cursor\" data-toggle=\"tooltip\" title=\"I like this\"></span> &nbsp; &nbsp;<span class=\"glyphicon glyphicon-thumbs-down top_alignment cursor\" data-toggle=\"tooltip\" title=\"I dislike this\"></span></div><div class=\"col-lg-3\"> <span><b>Source: </b> </span>[Link]</div>";
                     newtd += "<div class=\"col-lg-3\"> <span><b>Date: </b> </span>Jan 18 2017 at 10:57</div></div></td><td Width=\"10%\"><div class=\"progress progress-xs\">";
                     newtd += "<div class=\"progress-bar progress-bar-red\" style=\"width: 70%\"></div></div></td></tr>";
-                    $("#question").prepend(newquestion);
-                }else {
+                    $("#nostance").append(newtd);
+                } else {
                     alert("Error")
                 }
             },
@@ -245,8 +220,6 @@
             complete: function (xhr) {
 
             },
-
         });
-
     }
 </script>
