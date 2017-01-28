@@ -38,9 +38,7 @@
                                             <td>
                                                 <button class="accordion"> @item.Claim1</button>
                                                 <div class="panelfor">
-                                                    <p>
-                                                        @item.Evidence
-                                                </p>
+                                                    <p>@item.Evidence</p>
                                                 <div class="col-lg-3">
                                                     <span class="glyphicon glyphicon-thumbs-up top_alignment cursor" data-toggle="tooltip" title="I like this"></span> &nbsp; &nbsp;
                                                     <span class="glyphicon glyphicon-thumbs-down top_alignment cursor" data-toggle="tooltip" title="I dislike this"></span>
@@ -80,7 +78,7 @@
                                             </td>
                                             <td Width="10%">
                                                 <div class="progress progress-xs">
-                                                    <div class="progress-bar progress-bar-red" style="width: 70%"></div>
+                                                    <div class="progress-bar progress-bar-green" style="width: 70%"></div>
                                                 </div>
                                             </td>
                                         </tr>
@@ -124,7 +122,7 @@
                 <div class="">
                     <div class="row">
                         <div class="col-xs-12">
-                            <div class="box box-primary">
+                            <div class="">
                                 <div class="form-group">
                                     <label>Claim</label>
                                     @Html.TextBoxFor(x => x.Claim1, new { @class = "form-control" })
@@ -136,7 +134,6 @@
                                 <div class="form-group">
                                     <label>source</label>
                                     @Html.TextBoxFor(x => x.Source, new { @class = "form-control" })
-
                                 </div>
                             </div>
                         </div>
@@ -144,8 +141,8 @@
                 </div>
             </div>
             @{int dc = ViewBag.questionid;}
-            @Html.Hidden("QuestionId", dc, new { @class = "form-control" })
-            @Html.Hidden("Status", "", new { @class = "form-control" ,id="status"})
+            @Html.Hidden("QuestionId", dc)
+            @Html.Hidden("Status", "", new { id="statusvalue"})
             <div class="modal-footer">
                 <button type="submit" class="btn btn-info">Submit</button>
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -174,15 +171,11 @@
     });
     
     function addmodal(i) {
-        var status = 1;
-        debugger;
-        if (i == 1) {
-
+        var status = true;
+        if (i == 0) {
+            status = false;
         }
-        else {
-            status = 0;
-        }
-        $("#Status").val(status);
+        $("#statusvalue").val(status);
         $('#myModal').modal('show');
     }
     function submitclaim() {
