@@ -5913,7 +5913,7 @@ button.accordion {
     }
 
     button.accordion:after {
-        content: '> \00a0';
+        content: '\f0da \00a0';
         color: #777;
         font-weight: bold;
         float: left;
@@ -5921,7 +5921,7 @@ button.accordion {
     }
 
     button.accordion.active:after {
-        content: "^ \00a0";
+        content: "\f0d7 \00a0";
     }
 
 div.panelfor {
