@@ -86,9 +86,9 @@
                                     {
                                         <tr>
                                             <td>
-                                                <button class="accordion"> @item.Claim1</button>
+                                                <button class="accordion"><span class="fa fa-fw fa-caret-right"></span>@item.Claim1 </button>
                                                 <div class="panelfor">
-                                                    <p> <span class="fa fa-fw fa-close"> </span> @item.Evidence</p>
+                                                    <p> <span class="fa fa-fw fa-angle-double-down"> </span> @item.Evidence</p>
                                                     <div class="col-lg-3">
                                                         <div class="glyphicon glyphicon-thumbs-up top_alignment cursor" data-toggle="tooltip" title="I like this" onclick="vote(@item.QuestionId,@item.ClaimId,1,0,this)"><span class="interestbuttons" style="color:blue"> <b>Like</b></span></div> &nbsp; &nbsp;
                                                         <div class="glyphicon glyphicon-thumbs-down top_alignment cursor" data-toggle="tooltip" title="I dislike this" onclick="vote(@item.QuestionId,@item.ClaimId,0,0,this)"><span class="interestbuttons" style="color:blue"> <b>Dislike</b></span> </div>
@@ -116,8 +116,8 @@
                                             <td>
                                                 <button class="accordion"> @item.Claim1</button>
                                                 <div class="panelfor">
-                                                    <p> <span class="fa fa-fw fa-check"> </span> @item.Evidence</p>
-                                                    <div class="col-lg-3">                                                                       @*// questionid, claimid,status, stance, div)*@
+                                                    <p> <span class="fa fa-fw fa-angle-double-up"> </span> @item.Evidence</p>
+                                                    <div class="col-lg-3">                                                             
                                                         <div class="glyphicon glyphicon-thumbs-up top_alignment cursor" data-toggle="tooltip" title="I like this" onclick="vote(@item.QuestionId,@item.ClaimId,1,1,this)"><span class="interestbuttons" style="color:blue"> <b>Like</b></span></div> &nbsp; &nbsp;
                                                         <div class="glyphicon glyphicon-thumbs-down top_alignment cursor" data-toggle="tooltip" title="I dislike this" onclick="vote(@item.QuestionId,@item.ClaimId,0,1,this)"><span class="interestbuttons" style="color:blue"> <b>Dislike</b></span></div>
                                                     </div>
