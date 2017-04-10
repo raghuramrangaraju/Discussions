@@ -18,6 +18,7 @@ namespace Discussions.Models
         public Question()
         {
             this.Claims = new HashSet<Claim>();
+            this.Votes = new HashSet<Vote>();
         }
     
         public long QuestionId { get; set; }
@@ -30,5 +31,7 @@ namespace Discussions.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Claim> Claims { get; set; }
         public virtual User User { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Vote> Votes { get; set; }
     }
 }

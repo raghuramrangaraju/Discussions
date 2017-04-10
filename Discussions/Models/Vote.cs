@@ -16,12 +16,15 @@ namespace Discussions.Models
     {
         public long VoteId { get; set; }
         public Nullable<long> ClaimId { get; set; }
+        public Nullable<long> QuestionId { get; set; }
         public Nullable<long> UserId { get; set; }
         public Nullable<bool> Vote1 { get; set; }
         public Nullable<System.DateTime> CreatedAt { get; set; }
         public Nullable<bool> Status { get; set; }
+        public Nullable<bool> Stance { get; set; }
     
         public virtual Claim Claim { get; set; }
+        public virtual Question Question { get; set; }
         public virtual User User { get; set; }
     }
 }

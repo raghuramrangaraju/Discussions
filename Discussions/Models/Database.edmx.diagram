@@ -4,16 +4,17 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="306262ed06304b858ee4b2cf4caf3438" Name="Diagram1">
-        <EntityTypeShape EntityType="StructuredDiscussionsModel.Claim" Width="1.5" PointX="5.25" PointY="4.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="StructuredDiscussionsModel.Question" Width="1.5" PointX="3" PointY="7.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="StructuredDiscussionsModel.User" Width="1.5" PointX="0.75" PointY="3" IsExpanded="true" />
-        <EntityTypeShape EntityType="StructuredDiscussionsModel.Vote" Width="1.5" PointX="7.5" PointY="4.375" IsExpanded="true" />
-        <AssociationConnector Association="StructuredDiscussionsModel.FK_Claim_Question" ManuallyRouted="false" />
-        <AssociationConnector Association="StructuredDiscussionsModel.FK_Claim_User" ManuallyRouted="false" />
-        <AssociationConnector Association="StructuredDiscussionsModel.FK_Vote_Claim" ManuallyRouted="false" />
-        <AssociationConnector Association="StructuredDiscussionsModel.FK_Question_User" ManuallyRouted="false" />
-        <AssociationConnector Association="StructuredDiscussionsModel.FK_Vote_User" ManuallyRouted="false" />
+      <Diagram DiagramId="7d71f4d3c61b4cf09fd4a5b4c3282567" Name="Diagram1" ZoomLevel="74">
+        <EntityTypeShape EntityType="StructuredDiscussionsModel.Claim" Width="1.5" PointX="5.25" PointY="5" />
+        <EntityTypeShape EntityType="StructuredDiscussionsModel.Question" Width="1.5" PointX="3" PointY="7.625" />
+        <EntityTypeShape EntityType="StructuredDiscussionsModel.User" Width="1.5" PointX="0.75" PointY="3.125" />
+        <EntityTypeShape EntityType="StructuredDiscussionsModel.Vote" Width="1.5" PointX="7.5" PointY="5.125" />
+        <AssociationConnector Association="StructuredDiscussionsModel.FK_Claim_Question" />
+        <AssociationConnector Association="StructuredDiscussionsModel.FK_Claim_User" />
+        <AssociationConnector Association="StructuredDiscussionsModel.FK_Vote_Claim" />
+        <AssociationConnector Association="StructuredDiscussionsModel.FK_Question_User" />
+        <AssociationConnector Association="StructuredDiscussionsModel.FK_Vote_Question" />
+        <AssociationConnector Association="StructuredDiscussionsModel.FK_Vote_User" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -15,3 +15,197 @@
     <strong>Support:</strong>   <a href="mailto:Support@example.com">Support@example.com</a><br />
     <strong>Marketing:</strong> <a href="mailto:Marketing@example.com">Marketing@example.com</a>
 </address>
+
+
+@{
+    ViewBag.Title = "Claim";
+}
+<div class="content-wrapper" style="min-height: 388px;">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <h1>Structured discussions <small><b> Do we use 10% of our brains ?</b></small> </h1>
+    </section>
+    <!-- Main content -->
+    <section class="content">
+        <div class="nav-tabs-custom">
+            <ul class="nav nav-tabs">
+                <li class="active"><a href="#tab_1" data-toggle="tab"><b>Question</b></a> </li>
+                <li><a href="#tab_2" data-toggle="tab"><b>Expert Answer</b></a> </li>
+                <li><a href="#tab_3" data-toggle="tab"><b>Structured Discussions</b></a> </li>
+                <li><a href="#tab_3" data-toggle="tab"><b>Edit</b></a> </li>
+                <li><a href="#tab_3" data-toggle="tab"><b>History</b></a> </li>
+                <li class="pull-right"><a href="#" class="text-muted"><i class="fa fa-gear"></i></a> </li>
+            </ul>
+            <div class="tab-content">
+                <div class="tab-pane active" id="tab_1">
+                    <div class="box">
+                        <div class="box-header with-border">
+                            <h3 class="box-title">Do we use 10% of our brains ? </h3>
+                        </div>
+                        <!-- /.box-header -->
+                        <div class="box-body">
+                            <table class="table table-bordered">
+                                <tbody>
+                                    <tr>
+                                        <th>Question: Is it true that we only use 10% of our brain</th>
+                                        <th>Rating</th>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2" class="stance_no"><span class="glyphicon glyphicon-thumbs-down top_alignment"></span> STANCE: NO &nbsp;&nbsp;<button class="btn btn-danger glyphicon glyphicon-plus-sign small_button" data-toggle="tooltip" title="Add your claim"></button></td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <!-- <div class="panel">
+                                                <div class="box-header with-border">
+                                                    <h4 class="box-title">
+                                                        <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" class="collapsed" aria-expanded="false">
+                                                          Collapsible Group Danger
+                                                        </a>
+                                                      </h4>
+                                                </div>
+                                                <div id="collapseTwo" class="panel-collapse collapse" aria-expanded="false" style="height: 0px;">
+                                                    <div class="box-body">
+                                                        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put <span><b>Source: </b> </span>a bird
+                                                        on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher
+                                                        vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+                                                    </div>
+                                                </div>
+                                            </div> -->
+                                            <button class="accordion"> Only 10% Neurons used fallacy</button>
+                                            <div class="panelfor">
+                                                <p>
+                                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi
+                                                    ut aliquip ex ea commodo consequat.
+                                                </p>
+                                                <div class="col-lg-3">
+                                                    <span class="glyphicon glyphicon-thumbs-up top_alignment cursor" data-toggle="tooltip" title="I like this"></span> &nbsp; &nbsp;
+                                                    <span class="glyphicon glyphicon-thumbs-down top_alignment cursor" data-toggle="tooltip" title="I dislike this"></button>
+                                                </div>
+                                                <div class="col-lg-3"> <span><b>Source: </b> </span>[Link]</div>
+                                                <div class="col-lg-3"> <span><b>Date: </b> </span>Jan 18 2017 at 10:57</div>
+                                            </div>
+                                        </td>
+                                        <td Width="10%">
+                                            <div class="progress progress-xs">
+                                                <div class="progress-bar progress-bar-red" style="width: 70%"></div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2" class="stance_yes">
+                                            <span class="glyphicon glyphicon-thumbs-up top_alignment"></span> STANCE: YES &nbsp;&nbsp;<button class="btn btn-success glyphicon glyphicon-plus-sign small_button" data-toggle="tooltip" title="Add your claim" />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <button class="accordion">  We only use 10% of our potential</button>
+                                            <div class="panelfor">
+                                                <p>
+                                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi
+                                                    ut aliquip ex ea commodo consequat.
+                                                </p>
+                                                <div class="col-lg-3">
+                                                    <span class="glyphicon glyphicon-thumbs-up top_alignment cursor" data-toggle="tooltip" title="I like this"></span> &nbsp; &nbsp;
+                                                    <span class="glyphicon glyphicon-thumbs-down top_alignment cursor" data-toggle="tooltip" title="I dislike this"></button>
+                                                </div>
+                                                <div class="col-lg-3"> <span><b>Source: </b> </span>[Link]</div>
+                                                <div class="col-lg-3"> <span><b>Date: </b> </span>Jan 18 2017 at 10:57</div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="progress progress-xs progress-striped active">
+                                                <div class="progress-bar progress-bar-success" style="width: 90%"></div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <button class="accordion"> 10% of our neurons actively fire</button>
+                                            <div class="panelfor">
+                                                <p>
+                                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi
+                                                    ut aliquip ex ea commodo consequat.
+                                                </p>
+                                                <div class="col-lg-3">
+                                                    <span class="glyphicon glyphicon-thumbs-up top_alignment cursor" data-toggle="tooltip" title="I like this"></span> &nbsp; &nbsp;
+                                                    <span class="glyphicon glyphicon-thumbs-down top_alignment cursor" data-toggle="tooltip" title="I dislike this"></button>
+                                                </div>
+                                                <div class="col-lg-3"> <span><b>Source: </b> </span>[Link]</div>
+                                                <div class="col-lg-3"> <span><b>Date: </b> </span>Jan 18 2017 at 10:57</div>
+                                            </div>
+                                        <td>
+                                            <div class="progress progress-xs progress-striped active">
+                                                <div class="progress-bar progress-bar-success" style="width: 95%"></div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <button class="accordion">  90% of our potential is untapped</button>
+                                            <div class="panelfor">
+                                                <p>
+                                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi
+                                                    ut aliquip ex ea commodo consequat.
+                                                </p>
+                                                <div class="col-lg-3">
+                                                    <span class="glyphicon glyphicon-thumbs-up top_alignment cursor" data-toggle="tooltip" title="I like this"></span> &nbsp; &nbsp;
+                                                    <span class="glyphicon glyphicon-thumbs-down top_alignment cursor" data-toggle="tooltip" title="I dislike this"></button>
+                                                </div>
+                                                <div class="col-lg-3"> <span><b>Source: </b> </span>[Link]</div>
+                                                <div class="col-lg-3"> <span><b>Date: </b> </span>Jan 18 2017 at 10:57</div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="progress progress-xs progress-striped active">
+                                                <div class="progress-bar progress-bar-success" style="width: 100%"></div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <!-- /.box-body -->
+                    </div>
+                </div>
+                <!-- /.tab-pane -->
+                <div class="tab-pane" id="tab_2">
+                    The European languages are members of the same family. Their separate existence is a myth. For science, music, sport, etc, Europe uses the same vocabulary. The languages only differ in their grammar, their pronunciation and their
+                    most common words. Everyone realizes why a new common language would be desirable: one could refuse to pay expensive translators. To achieve this, it would be necessary to have uniform grammar, pronunciation and more common
+                    words. If several languages coalesce, the grammar of the resulting language is more simple and regular than that of the individual languages.
+                </div>
+                <!-- /.tab-pane -->
+                <div class="tab-pane" id="tab_3">
+                    Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type
+                    specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum
+                    passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+                </div>
+                <!-- /.tab-pane -->
+            </div>
+            <!-- /.tab-content -->
+        </div>
+        <!-- END TYPOGRAPHY -->
+    </section>
+    <!-- /.content -->
+</div>
+
+
+<script type="text/javascript">
+        var acc = document.getElementsByClassName("accordion");
+        var i;
+
+        for (i = 0; i < acc.length; i++) {
+            acc[i].onclick = function() {
+                this.classList.toggle("active");
+                var panel = this.nextElementSibling;
+                if (panel.style.maxHeight) {
+                    panel.style.maxHeight = null;
+                } else {
+                    panel.style.maxHeight = panel.scrollHeight + 'px';
+                }
+            }
+        }
+        $(document).ready(function() {
+            $('[data-toggle="tooltip"]').tooltip();
+        });
+</script>
+

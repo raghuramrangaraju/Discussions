@@ -2,18 +2,52 @@
 @{
     ViewBag.Title = "Claim";
 }
+<style>
+    .interestbuttons {
+        font-family: Arial;
+        font-size: 11px;
+    }
+ 
+    .qtip-wiki {
+        max-width: 385px;
+    }
+
+        .qtip-wiki p {
+            margin: 0 0 6px;
+        }
+
+        .qtip-wiki h1 {
+            font-size: 20px;
+            line-height: 1.1;
+            margin: 0 0 5px;
+        }
+
+        .qtip-wiki img {
+            float: left;
+            margin: 10px 10px 10px 0;
+        }
+
+        .qtip-wiki .info {
+            overflow: hidden;
+        }
+
+        .qtip-wiki p.note {
+            font-weight: 700;
+        }
+</style>
 <div class="content-wrapper" style="min-height: 388px;">
     <!-- Content Header (Page header) -->
     <section class="content-header">
-        <h1>Structured discussions </h1>
+        <h1>Verification of Facts</h1>
+
     </section>
     <!-- Main content -->
     <section class="content">
         <div class="nav-tabs-custom">
             <ul class="nav nav-tabs">
                 <li class="active"><a href="#tab_1" data-toggle="tab"><b>Question</b></a> </li>
-                <li><a href="#tab_2" data-toggle="tab"><b>Expert Answer</b></a> </li>
-                <li><a href="#tab_3" data-toggle="tab"><b>Structured Discussions</b></a> </li>
+                <li><a href="#tab_2" data-toggle="tab"><b>Majority Opinion</b></a> </li>
+                <li><a href="#tab_3" data-toggle="tab"><b>Discussion</b></a> </li>
                 <li><a href="#tab_3" data-toggle="tab"><b>Edit</b></a> </li>
                 <li><a href="#tab_3" data-toggle="tab"><b>History</b></a> </li>
                 <li class="pull-right"><a href="#" class="text-muted"><i class="fa fa-gear"></i></a> </li>
@@ -26,11 +60,27 @@
                             <table class="table table-bordered">
                                 <tbody>
                                     <tr>
-                                        <th>Question: Is it true that we only use 10% of our brain</th>
-                                        <th>Rating</th>
+                                        <th>Proposition: @ViewBag.question</th>
+                                        <th>
+                                            Rating <select name="cars">
+                                                <option value="volvo">All</option>
+                                                <option value="volvo">1</option>
+                                                <option value="saab">2</option>
+                                                <option value="fiat">3</option>
+                                                <option value="audi">4</option>
+                                                <option value="audi">5</option>
+                                                <option value="audi">6</option>
+                                                <option value="audi">7</option>
+                                                <option value="audi">8</option>
+                                                <option value="audi">9</option>
+                                                <option value="audi">10</option>
+                                            </select>
+                                        </th>
                                     </tr>
                                     <tr>
-                                        <td colspan="2" class="stance_no"><span class="glyphicon glyphicon-thumbs-down top_alignment"></span> STANCE: NO &nbsp;&nbsp;<button class="btn btn-danger glyphicon glyphicon-plus-sign small_button" data-toggle="tooltip" title="Add your claim" onclick="addmodal(0)"></button></td>
+                                        @*//btn btn-danger glyphicon glyphicon-plus-sign small_button*@
+                                        <td colspan="2" class="stance_no"><span class="glyphicon glyphicon-thumbs-down top_alignment"></span> STANCE: NO &nbsp;&nbsp;<span class="glyphicon glyphicon-plus " data-toggle="tooltip" title="Add your claim" onclick="addmodal(0)"></span></td>
+
                                     </tr>
                                     @foreach (var item in ViewBag.notance as List<Discussions.Models.Claim>)
                                     {
@@ -38,25 +88,26 @@
                                             <td>
                                                 <button class="accordion"> @item.Claim1</button>
                                                 <div class="panelfor">
-                                                    <p>@item.Evidence</p>
-                                                <div class="col-lg-3">
-                                                    <span class="glyphicon glyphicon-thumbs-up top_alignment cursor" data-toggle="tooltip" title="I like this"></span> &nbsp; &nbsp;
-                                                    <span class="glyphicon glyphicon-thumbs-down top_alignment cursor" data-toggle="tooltip" title="I dislike this"></span>
+                                                    <p> <span class="fa fa-fw fa-close"> </span> @item.Evidence</p>
+                                                    <div class="col-lg-3">
+                                                        <div class="glyphicon glyphicon-thumbs-up top_alignment cursor" data-toggle="tooltip" title="I like this" onclick="vote(@item.QuestionId,@item.ClaimId,1,0,this)"><span class="interestbuttons" style="color:blue"> <b>Like</b></span></div> &nbsp; &nbsp;
+                                                        <div class="glyphicon glyphicon-thumbs-down top_alignment cursor" data-toggle="tooltip" title="I dislike this" onclick="vote(@item.QuestionId,@item.ClaimId,0,0,this)"><span class="interestbuttons" style="color:blue"> <b>Dislike</b></span> </div>
+                                                    </div>
+                                                    <div class="col-lg-3"> <span><b>Source: </b> </span>@item.Source</div>
+                                                    <div class="col-lg-3"> <span><b>User: </b> </span> <a href="#" data-toggle="popover" data-html="true" data-container="body" title="<b>@item.User.FirstName</b>" data-content="Email: @item.User.EmailId" data-trigger="hover">@item.User.FirstName</a></div>
+                                                    <div class="col-lg-3"> <span><b>Date: </b> </span>@item.CreatedAt.Value.ToLocalTime()</div>
                                                 </div>
-                                                <div class="col-lg-3"> <span><b>Source: </b> </span>@item.Source</div>
-                                                <div class="col-lg-3"> <span><b>Date: </b> </span>@item.CreatedAt</div>
-                                            </div>
-                                        </td>
-                                        <td Width="10%">
-                                            <div class="progress progress-xs">
-                                                <div class="progress-bar progress-bar-red" style="width: 70%"></div>
-                                            </div>
-                                        </td>
-                                    </tr>
+                                            </td>
+                                            <td Width="10%">
+                                                <div class="progress progress-xs">
+                                                    <div class="progress-bar progress-bar-red" style="width: @item.Rating%"></div>
+                                                </div>
+                                            </td>
+                                        </tr>
                                     }
                                     <tr>
                                         <td colspan="2" class="stance_yes">
-                                            <span class="glyphicon glyphicon-thumbs-up top_alignment"></span> STANCE: YES &nbsp;&nbsp;<button class="btn btn-success glyphicon glyphicon-plus-sign small_button" data-toggle="tooltip" title="Add your claim" onclick="addmodal(1)" />
+                                            <span class="glyphicon glyphicon-thumbs-up top_alignment"></span> STANCE: YES &nbsp;&nbsp;<span class="glyphicon glyphicon-plus" data-toggle="tooltip" title="Add your claim" onclick="addmodal(1)" />
                                         </td>
                                     </tr>
                                     @foreach (var item in ViewBag.yestance as List<Discussions.Models.Claim>)
@@ -65,20 +116,19 @@
                                             <td>
                                                 <button class="accordion"> @item.Claim1</button>
                                                 <div class="panelfor">
-                                                    <p>
-                                                        @item.Evidence
-                                                    </p>
-                                                    <div class="col-lg-3">
-                                                        <span class="glyphicon glyphicon-thumbs-up top_alignment cursor" data-toggle="tooltip" title="I like this"></span> &nbsp; &nbsp;
-                                                        <span class="glyphicon glyphicon-thumbs-down top_alignment cursor" data-toggle="tooltip" title="I dislike this"></span>
+                                                    <p> <span class="fa fa-fw fa-check"> </span> @item.Evidence</p>
+                                                    <div class="col-lg-3">                                                                       @*// questionid, claimid,status, stance, div)*@
+                                                        <div class="glyphicon glyphicon-thumbs-up top_alignment cursor" data-toggle="tooltip" title="I like this" onclick="vote(@item.QuestionId,@item.ClaimId,1,1,this)"><span class="interestbuttons" style="color:blue"> <b>Like</b></span></div> &nbsp; &nbsp;
+                                                        <div class="glyphicon glyphicon-thumbs-down top_alignment cursor" data-toggle="tooltip" title="I dislike this" onclick="vote(@item.QuestionId,@item.ClaimId,0,1,this)"><span class="interestbuttons" style="color:blue"> <b>Dislike</b></span></div>
                                                     </div>
                                                     <div class="col-lg-3"> <span><b>Source: </b> </span>@item.Source</div>
+                                                    <div class="col-lg-3"> <span><b>User: </b> </span>Test</div>
                                                     <div class="col-lg-3"> <span><b>Date: </b> </span>@item.CreatedAt</div>
                                                 </div>
                                             </td>
                                             <td Width="10%">
                                                 <div class="progress progress-xs">
-                                                    <div class="progress-bar progress-bar-green" style="width: 70%"></div>
+                                                    <div class="progress-bar progress-bar-green" style="width:  @item.Rating%"></div>
                                                 </div>
                                             </td>
                                         </tr>
@@ -142,7 +192,7 @@
             </div>
             @{int dc = ViewBag.questionid;}
             @Html.Hidden("QuestionId", dc)
-            @Html.Hidden("Status", "", new { id="statusvalue"})
+            @Html.Hidden("Status", "", new { id = "statusvalue" })
             <div class="modal-footer">
                 <button type="submit" class="btn btn-info">Submit</button>
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -152,7 +202,43 @@
 </div>
 }
 
+<script src="http://cdn.jsdelivr.net/qtip2/3.0.3/jquery.qtip.min.js"></script>
+<link rel="stylesheet" href="http://cdn.jsdelivr.net/qtip2/3.0.3/jquery.qtip.min.css">
 <script type="text/javascript">
+    $(document).ready(function () {
+        $('[data-toggle="popover"]').popover({ container: 'body' });
+    });
+    // MAKE SURE YOUR SELECTOR MATCHES SOMETHING IN YOUR HTML!!!
+    function mouseover() {
+        var userid = 1;
+        $(this).qtip({
+            content: {
+                text: function (event, api) {
+                    $.ajax({
+                        type: "POST",
+                        url: "../home/mouseover",
+                        data: { "userid": userid },
+                        dataType: "json",
+                    })
+                    .then(function (content) {
+                        // Set the tooltip content upon successful retrieval
+                        this.set('content.text', content);
+                    }, function (xhr, status, error) {
+                        // Upon failure... set the tooltip content to error
+                        api.set('content.text', status + ': ' + error);
+                    });
+
+                    return 'Loading...'; // Set some initial text
+                }
+            },
+            position: {
+                viewport: $(window)
+            },
+            style: 'qtip-wiki'
+        });
+    }
+
+
     var acc = document.getElementsByClassName("accordion");
     var i;
     for (i = 0; i < acc.length; i++) {
@@ -169,7 +255,7 @@
     $(document).ready(function () {
         $('[data-toggle="tooltip"]').tooltip();
     });
-    
+
     function addmodal(i) {
         var status = true;
         if (i == 0) {
@@ -212,6 +298,44 @@
             },
             complete: function (xhr) {
 
+            },
+        });
+    }
+
+    function vote(questionid, claimid,status, stance, div)
+    {
+        
+        //var parent = div.className;
+        //console.log(data);
+        //console.log(parent);
+        //this('.parent').removeClass('active');
+        // $(parent).addClass('active');
+        debugger;
+        var status_ = true;
+        if(status == 0)
+        {
+            status_ = false;
+        }
+        var stance_ = true;
+        if(stance == 0)
+        {
+            stance_ = false;
+        }
+        $.ajax({
+            type: "POST",
+            url: "../home/vote",
+            data: { questionid : questionid , claimid: claimid, status: status_, stance:stance_},
+            dataType: "json",
+            success: function (data) {
+                debugger;
+                if (data) {
+                    location.reload();
+                } else {
+                    alert("Error")
+                }
+            },
+            error: function (result) {
+                alert("Error");
             },
         });
     }

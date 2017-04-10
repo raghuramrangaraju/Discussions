@@ -26,7 +26,7 @@ namespace Discussions.Models
         public string Claim1 { get; set; }
         public string Evidence { get; set; }
         public string Source { get; set; }
-        public Nullable<byte> Rating { get; set; }
+        public Nullable<double> Rating { get; set; }
         public Nullable<System.DateTime> CreatedAt { get; set; }
         public Nullable<bool> Status { get; set; }
         public Nullable<System.DateTime> ModifiedAt { get; set; }

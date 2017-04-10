@@ -68,22 +68,24 @@
                                                     <div class="col-lg-2 col-xs-1">
                                                         <div class="votes">
                                                             <div class="mini-counts"><span title="0 answers">0</span></div>
-                                                            <div>answers</div>
+                                                            <div>claims</div>
                                                         </div>
                                                     </div>
                                                     <div class="col-lg-2 col-xs-1">
                                                         <div class="votes">
-                                                            <div class="mini-counts"><span title="5 views">5</span></div>
+                                                            <div class="mini-counts"><span title="0 views">5</span></div>
                                                             <div>views</div>
                                                         </div>
                                                     </div>
                                                     @*<img src="dist/img/default-50x50.gif" alt="Product Image">*@
                                                 </div>
-                                                <div class="col-lg-8">
+                                                <div class="col-lg-6">
                                                     <a href="../home/claim?QuestionId=+@item.QuestionId" class="product-title">
                                                         @item.Question1
                                                     </a>
-                                                    <span class="pull-right">asked @item.CreateAt.Value by @item.User.UserName </span>
+                                                </div>
+                                                <div class="col-lg-2">
+                                                    <span class="pull-right">asked @item.CreateAt.Value.ToLocalTime() by @item.User.UserName </span>
                                                 </div>
                                             </div>
                                         </div>
@@ -138,9 +140,8 @@
 </div>
 
 <script type="text/javascript">
+
     function addquestion() {
-        //    $("#modalhead").empty();
-        //  $("#modalbody").empty();
         $('#myModal').modal('show');
     }
     function askquestion() {
@@ -157,14 +158,14 @@
                 success: function (data) {
                     debugger;
                     if (data) {
-                        var newquestion ="<li class=\"item\"><div class=\"row\"><div class=\"col-lg-12 col-sm-4\"><div class=\"col-lg-4 col-xs-4\"><div class=\"col-lg-2 col-xs-1\">";
+                        var newquestion = "<li class=\"item\"><div class=\"row\"><div class=\"col-lg-12 col-sm-4\"><div class=\"col-lg-4 col-xs-4\"><div class=\"col-lg-2 col-xs-1\">";
                         newquestion += "<div class=\"votes\"><div class=\"mini-counts\"><span title=\"0 votes\">0</span></div><div>votes</div></div></div><div class=\"col-lg-2 col-xs-1\">";
                         newquestion += "<div class=\"votes\"><div class=\"mini-counts\"><span title=\"0 answers\">0</span></div><div>answers</div></div></div><div class=\"col-lg-2 col-xs-1\"><div class=\"votes\">";
-                        newquestion += "<div class=\"mini-counts\"><span title=\"5 views\">5</span></div><div>views</div></div></div>";
+                        newquestion += "<div class=\"mini-counts\"><span title=\"0 views\">5</span></div><div>views</div></div></div>";
                         newquestion += "</div><div class=\"col-lg-8\"><a href=\"../home/claim?QuestionId=+" + data.QuestionId + "\" class=\"product-title\">" + question + "</a><span class=\"pull-right\">asked Value by UserName </span></div>";
                         newquestion += "</div></div></li>";
                         $("#question").prepend(newquestion);
-                        //alert("Save Successfully");
+                        $('#askquestion').val('');
                     }
                     else {
                         alert("Error")

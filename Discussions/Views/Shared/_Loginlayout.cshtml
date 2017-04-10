@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>AdminLTE 2 | Log in</title>
+    <title>@ViewBag.Title</title>
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <!-- Bootstrap 3.3.6 -->
@@ -16,31 +16,34 @@
     <link rel="stylesheet" href="~/AdminLte/dist/css/AdminLTE.css">
     <!-- iCheck -->
     <link rel="stylesheet" href="~/AdminLte/plugins/iCheck/square/blue.css">
-
+   
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
     <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
-    <script type="text/javascript" src="https://gc.kis.v2.scr.kaspersky-labs.com/74A73515-3B88-4649-B9B5-A56A0CE17FE6/main.js" charset="UTF-8"></script>
-    <link rel="stylesheet" crossorigin="anonymous" href="https://gc.kis.v2.scr.kaspersky-labs.com/6EF71EC0A65A-5B9B-9464-88B3-51537A47/abn/main.css" />
-    <style>
-        .left {
-            float: left;
-        }
-    </style>
+   
+    <script src="~/AdminLte/plugins/jQuery/jquery-2.2.3.min.js"></script>
 
 </head>
 <body class="hold-transition login-page">
     @RenderBody()
     <!-- /.login-box -->
     <!-- jQuery 2.2.3 -->
-    <script src="~/AdminLte/plugins/jQuery/jquery-2.2.3.min.js"></script>
+    
     <!-- Bootstrap 3.3.6 -->
-    <script src="~/AdminLte/bootstrap/js/bootstrap.min.js"></script>
+    
     <!-- iCheck -->
     <script src="~/AdminLte/plugins/iCheck/icheck.min.js"></script>
+
+    <script src="~/AdminLte/bootstrap/js/bootstrap.min.js"></script>
+    <!-- FastClick -->
+    <script src="~/AdminLte/plugins/fastclick/fastclick.js"></script>
+    <!-- AdminLTE App -->
+    <script src="~/AdminLte/dist/js/app.min.js"></script>
+    <!-- AdminLTE for demo purposes -->
+    <script src="~/AdminLte/dist/js/demo.js"></script>
     <script>
         $(function () {
             $('input').iCheck({
