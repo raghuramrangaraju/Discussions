@@ -7,7 +7,7 @@
         font-family: Arial;
         font-size: 11px;
     }
- 
+
     .qtip-wiki {
         max-width: 385px;
     }
@@ -61,7 +61,7 @@
                                 <tbody>
                                     <tr>
                                         <th>Proposition: @ViewBag.question</th>
-                                        <th>
+                                        <th Width="10%"> 
                                             Rating <select name="cars">
                                                 <option value="volvo">All</option>
                                                 <option value="volvo">1</option>
@@ -85,24 +85,29 @@
                                     @foreach (var item in ViewBag.notance as List<Discussions.Models.Claim>)
                                     {
                                         <tr>
-                                            <td>
-                                                <button class="accordion"><span class="fa fa-fw fa-caret-right"></span>@item.Claim1 </button>
+
+                                            <td colspan="2">
+                                                <button class="accordion"> @item.Claim1 </button>
                                                 <div class="panelfor">
                                                     <p> <span class="fa fa-fw fa-angle-double-down"> </span> @item.Evidence</p>
                                                     <div class="col-lg-3">
                                                         <div class="glyphicon glyphicon-thumbs-up top_alignment cursor" data-toggle="tooltip" title="I like this" onclick="vote(@item.QuestionId,@item.ClaimId,1,0,this)"><span class="interestbuttons" style="color:blue"> <b>Like</b></span></div> &nbsp; &nbsp;
                                                         <div class="glyphicon glyphicon-thumbs-down top_alignment cursor" data-toggle="tooltip" title="I dislike this" onclick="vote(@item.QuestionId,@item.ClaimId,0,0,this)"><span class="interestbuttons" style="color:blue"> <b>Dislike</b></span> </div>
                                                     </div>
-                                                    <div class="col-lg-3"> <span><b>Source: </b> </span>@item.Source</div>
-                                                    <div class="col-lg-3"> <span><b>User: </b> </span> <a href="#" data-toggle="popover" data-html="true" data-container="body" title="<b>@item.User.FirstName</b>" data-content="Email: @item.User.EmailId" data-trigger="hover">@item.User.FirstName</a></div>
-                                                    <div class="col-lg-3"> <span><b>Date: </b> </span>@item.CreatedAt.Value.ToLocalTime()</div>
+                                                    <div class="col-lg-2"> <span><b>Source: </b> </span>@item.Source</div>
+                                                    <div class="col-lg-2"> <span><b>User: </b> </span> <a href="#" data-toggle="popover" data-html="true" data-container="body" title="<b>@item.User.FirstName</b>" data-content="Email: @item.User.EmailId" data-trigger="hover">@item.User.FirstName</a></div>
+                                                    <div class="col-lg-2"> <span><b>Date: </b> </span>@item.CreatedAt.Value.ToLocalTime()</div>
+                                                    <div class="col-lg-1 pull-right">
+                                                        <div class="progress progress-xs">
+                                                            <div class="progress-bar progress-bar-red" style="width: @item.Rating%"></div>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </td>
-                                            <td Width="10%">
-                                                <div class="progress progress-xs">
-                                                    <div class="progress-bar progress-bar-red" style="width: @item.Rating%"></div>
-                                                </div>
-                                            </td>
+
+
+
+
                                         </tr>
                                     }
                                     <tr>
@@ -113,24 +118,29 @@
                                     @foreach (var item in ViewBag.yestance as List<Discussions.Models.Claim>)
                                     {
                                         <tr>
-                                            <td>
+                                            <td colspan="2">
                                                 <button class="accordion"> @item.Claim1</button>
                                                 <div class="panelfor">
                                                     <p> <span class="fa fa-fw fa-angle-double-up"> </span> @item.Evidence</p>
-                                                    <div class="col-lg-3">                                                             
+                                                    <div class="col-lg-3">
                                                         <div class="glyphicon glyphicon-thumbs-up top_alignment cursor" data-toggle="tooltip" title="I like this" onclick="vote(@item.QuestionId,@item.ClaimId,1,1,this)"><span class="interestbuttons" style="color:blue"> <b>Like</b></span></div> &nbsp; &nbsp;
                                                         <div class="glyphicon glyphicon-thumbs-down top_alignment cursor" data-toggle="tooltip" title="I dislike this" onclick="vote(@item.QuestionId,@item.ClaimId,0,1,this)"><span class="interestbuttons" style="color:blue"> <b>Dislike</b></span></div>
                                                     </div>
-                                                    <div class="col-lg-3"> <span><b>Source: </b> </span>@item.Source</div>
-                                                    <div class="col-lg-3"> <span><b>User: </b> </span>Test</div>
-                                                    <div class="col-lg-3"> <span><b>Date: </b> </span>@item.CreatedAt</div>
-                                                </div>
+                                                    <div class="col-lg-2"> <span><b>Source: </b> </span>@item.Source</div>
+                                                    <div class="col-lg-2"> <span><b>User: </b> </span>Test</div>
+                                                    <div class="col-lg-2"> <span><b>Date: </b> </span>@item.CreatedAt</div>
+                                                    <div class="col-lg-1 pull-right">
+                                                        <div class="progress progress-xs">
+                                                            <div class="progress-bar progress-bar-green" style="width:  @item.Rating%"></div>
+                                                        </div>
+                                                        </div>
+                                                    </div>
                                             </td>
-                                            <td Width="10%">
+                                            @*<td Width="10%">
                                                 <div class="progress progress-xs">
                                                     <div class="progress-bar progress-bar-green" style="width:  @item.Rating%"></div>
                                                 </div>
-                                            </td>
+                                            </td>*@
                                         </tr>
                                     }
                                 </tbody>
@@ -304,7 +314,7 @@
 
     function vote(questionid, claimid,status, stance, div)
     {
-        
+
         //var parent = div.className;
         //console.log(data);
         //console.log(parent);
