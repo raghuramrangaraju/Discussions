@@ -79,7 +79,7 @@
                                         </th>
                                     </tr>
                                     <tr>
-                                        <td colspan="2" class="stance_no"><span class="top_alignment"><img src="~/AdminLte/dist/img/con-image.png"  style="width:31px;margin-top:-3px"/></span> STANCE: NO &nbsp;&nbsp;<span class="glyphicon glyphicon-plus " data-toggle="tooltip" title="Add your claim" onclick="addmodal(0)"></span></td>
+                                        <td colspan="2" class="stance_no"><span class="top_alignment"></span> STANCE: NO &nbsp;&nbsp;<span class="glyphicon glyphicon-plus " data-toggle="tooltip" title="Add your claim" onclick="addmodal(0)"></span></td>
                                     </tr>
                                     @foreach (var item in ViewBag.notance as List<Discussions.Models.Claim>)
                                     {
@@ -88,7 +88,7 @@
                                             <td colspan="2">
                                                 <button class="accordion fa fa-fw"> @item.Claim1 </button>
                                                 <div class="panelfor">
-                                                    <p> <span class="fa fa-fw fa-angle-double-down"> </span> @item.Evidence</p>
+                                                    <p>  <img src="~/AdminLte/dist/img/con-image.png" style="width:31px;margin-top:-3px" /> @item.Evidence</p>
                                                     <div class="col-lg-3">
                                                         <div class="glyphicon glyphicon-thumbs-up top_alignment cursor" data-toggle="tooltip" title="I like this" onclick="vote(@item.QuestionId,@item.ClaimId,1,0,this)"><span class="interestbuttons" style="color:blue"> </span></div> &nbsp; &nbsp;
                                                         <div class="glyphicon glyphicon-thumbs-down top_alignment cursor" data-toggle="tooltip" title="I dislike this" onclick="vote(@item.QuestionId,@item.ClaimId,0,0,this)"><span class="interestbuttons" style="color:blue"> </span> </div>
@@ -111,7 +111,7 @@
                                     }
                                     <tr>
                                         <td colspan="2" class="stance_yes">
-                                            <span class="top_alignment"><img src="~/AdminLte/dist/img/pro-image.png" style="width:31px;margin-top:-3px" /></span> STANCE: YES &nbsp;&nbsp;<span class="glyphicon glyphicon-plus" data-toggle="tooltip" title="Add your claim" onclick="addmodal(1)" />
+                                            <span class="top_alignment"></span> STANCE: YES &nbsp;&nbsp;<span class="glyphicon glyphicon-plus" data-toggle="tooltip" title="Add your claim" onclick="addmodal(1)" />
                                         </td>
                                     </tr>
                                     @foreach (var item in ViewBag.yestance as List<Discussions.Models.Claim>)
@@ -119,8 +119,8 @@
                                         <tr>
                                             <td colspan="2">
                                                 <button class="accordion fa fa-fw"> @item.Claim1</button>
-                                                <div class="panelfor">
-                                                    <p> <span class="fa fa-fw fa-angle-double-up"> </span> @item.Evidence</p>
+                                                <div class="panelfor"> @*<span class="fa fa-fw fa-angle-double-up"> </span>*@ 
+                                                    <p> <img src="~/AdminLte/dist/img/pro-image.png" style="width:31px;margin-top:-3px" /> @item.Evidence</p>
                                                     <div class="col-lg-3">
                                                         <div class="glyphicon glyphicon-thumbs-up top_alignment cursor" data-toggle="tooltip" title="I like this" onclick="vote(@item.QuestionId,@item.ClaimId,1,1,this)"><span class="interestbuttons" style="color:blue"> </span></div> &nbsp; &nbsp;
                                                         <div class="glyphicon glyphicon-thumbs-down top_alignment cursor" data-toggle="tooltip" title="I dislike this" onclick="vote(@item.QuestionId,@item.ClaimId,0,1,this)"><span class="interestbuttons" style="color:blue"></span></div>
