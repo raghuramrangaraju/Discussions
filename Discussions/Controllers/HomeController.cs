@@ -111,5 +111,25 @@ namespace Discussions.Controllers
 
             return Json(1, JsonRequestBehavior.AllowGet);
         }
+
+
+        public JsonResult subevidence(int claimid, string subevidence, string subevidencesource, string stance)
+        {
+            SubEvidence sub_evidence = new SubEvidence();
+            sub_evidence.ClaimId = Convert.ToInt64(claimid);
+            sub_evidence.SubEvidence1 = subevidence;
+            sub_evidence.Source = subevidencesource;
+            sub_evidence.UserId = Convert.ToInt64(Session["UserId"]);
+            sub_evidence.Status = true;
+            sub_evidence.CreatedAt = DateTime.UtcNow;
+            sub_evidence.Rating = 0;
+            sub_evidence.Stance = stance;
+            context.SubEvidences.Add(sub_evidence);
+            context.SaveChanges();
+
+
+
+            return Json(1, JsonRequestBehavior.AllowGet);
+        }
     }
 }
