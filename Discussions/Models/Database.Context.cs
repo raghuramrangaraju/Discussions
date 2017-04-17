@@ -29,5 +29,6 @@ namespace Discussions.Models
         public virtual DbSet<Question> Questions { get; set; }
         public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<Vote> Votes { get; set; }
+        public virtual DbSet<SubEvidence> SubEvidences { get; set; }
     }
 }

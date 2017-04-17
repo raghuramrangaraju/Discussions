@@ -31,6 +31,21 @@
           <Property Name="CreateAt" Type="datetime" />
           <Property Name="ModifiedAt" Type="datetime" />
         </EntityType>
+        <EntityType Name="SubEvidence">
+          <Key>
+            <PropertyRef Name="SubEvidenceId" />
+          </Key>
+          <Property Name="SubEvidenceId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ClaimId" Type="bigint" />
+          <Property Name="UserId" Type="bigint" />
+          <Property Name="SubEvidence" Type="nvarchar" MaxLength="1000" />
+          <Property Name="Source" Type="nvarchar" MaxLength="1000" />
+          <Property Name="Stance" Type="nvarchar" MaxLength="10" />
+          <Property Name="Rating" Type="float" />
+          <Property Name="CreatedAt" Type="datetime" />
+          <Property Name="Status" Type="bit" />
+          <Property Name="ModifiedAt" Type="datetime" />
+        </EntityType>
         <EntityType Name="User">
           <Key>
             <PropertyRef Name="UserId" />
@@ -93,6 +108,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_SubEvidence_Claim1">
+          <End Role="Claim" Type="Self.Claim" Multiplicity="0..1" />
+          <End Role="SubEvidence" Type="Self.SubEvidence" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Claim">
+              <PropertyRef Name="ClaimId" />
+            </Principal>
+            <Dependent Role="SubEvidence">
+              <PropertyRef Name="ClaimId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SubEvidence_User1">
+          <End Role="User" Type="Self.User" Multiplicity="0..1" />
+          <End Role="SubEvidence" Type="Self.SubEvidence" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="SubEvidence">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Vote_Claim">
           <End Role="Claim" Type="Self.Claim" Multiplicity="0..1" />
           <End Role="Vote" Type="Self.Vote" Multiplicity="*" />
@@ -132,6 +171,7 @@
         <EntityContainer Name="StructuredDiscussionsModelStoreContainer">
           <EntitySet Name="Claim" EntityType="Self.Claim" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Question" EntityType="Self.Question" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SubEvidence" EntityType="Self.SubEvidence" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Vote" EntityType="Self.Vote" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_Claim_Question" Association="Self.FK_Claim_Question">
@@ -145,6 +185,14 @@
           <AssociationSet Name="FK_Question_User" Association="Self.FK_Question_User">
             <End Role="User" EntitySet="User" />
             <End Role="Question" EntitySet="Question" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SubEvidence_Claim1" Association="Self.FK_SubEvidence_Claim1">
+            <End Role="Claim" EntitySet="Claim" />
+            <End Role="SubEvidence" EntitySet="SubEvidence" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SubEvidence_User1" Association="Self.FK_SubEvidence_User1">
+            <End Role="User" EntitySet="User" />
+            <End Role="SubEvidence" EntitySet="SubEvidence" />
           </AssociationSet>
           <AssociationSet Name="FK_Vote_Claim" Association="Self.FK_Vote_Claim">
             <End Role="Claim" EntitySet="Claim" />
@@ -163,36 +211,6 @@
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="StructuredDiscussionsModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityContainer Name="StructuredDiscussionsEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="Claims" EntityType="StructuredDiscussionsModel.Claim" />
-          <EntitySet Name="Questions" EntityType="StructuredDiscussionsModel.Question" />
-          <EntitySet Name="Users" EntityType="StructuredDiscussionsModel.User" />
-          <EntitySet Name="Votes" EntityType="StructuredDiscussionsModel.Vote" />
-          <AssociationSet Name="FK_Claim_Question" Association="StructuredDiscussionsModel.FK_Claim_Question">
-            <End Role="Question" EntitySet="Questions" />
-            <End Role="Claim" EntitySet="Claims" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Claim_User" Association="StructuredDiscussionsModel.FK_Claim_User">
-            <End Role="User" EntitySet="Users" />
-            <End Role="Claim" EntitySet="Claims" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Vote_Claim" Association="StructuredDiscussionsModel.FK_Vote_Claim">
-            <End Role="Claim" EntitySet="Claims" />
-            <End Role="Vote" EntitySet="Votes" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Question_User" Association="StructuredDiscussionsModel.FK_Question_User">
-            <End Role="User" EntitySet="Users" />
-            <End Role="Question" EntitySet="Questions" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Vote_Question" Association="StructuredDiscussionsModel.FK_Vote_Question">
-            <End Role="Question" EntitySet="Questions" />
-            <End Role="Vote" EntitySet="Votes" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Vote_User" Association="StructuredDiscussionsModel.FK_Vote_User">
-            <End Role="User" EntitySet="Users" />
-            <End Role="Vote" EntitySet="Votes" />
-          </AssociationSet>
-        </EntityContainer>
         <EntityType Name="Claim">
           <Key>
             <PropertyRef Name="ClaimId" />
@@ -207,9 +225,10 @@
           <Property Name="CreatedAt" Type="DateTime" Precision="3" />
           <Property Name="Status" Type="Boolean" />
           <Property Name="ModifiedAt" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="Question" Relationship="StructuredDiscussionsModel.FK_Claim_Question" FromRole="Claim" ToRole="Question" />
-          <NavigationProperty Name="User" Relationship="StructuredDiscussionsModel.FK_Claim_User" FromRole="Claim" ToRole="User" />
-          <NavigationProperty Name="Votes" Relationship="StructuredDiscussionsModel.FK_Vote_Claim" FromRole="Claim" ToRole="Vote" />
+          <NavigationProperty Name="Question" Relationship="Self.FK_Claim_Question" FromRole="Claim" ToRole="Question" />
+          <NavigationProperty Name="User" Relationship="Self.FK_Claim_User" FromRole="Claim" ToRole="User" />
+          <NavigationProperty Name="Votes" Relationship="Self.FK_Vote_Claim" FromRole="Claim" ToRole="Vote" />
+          <NavigationProperty Name="SubEvidences" Relationship="StructuredDiscussionsModel.FK_SubEvidence_Claim1" FromRole="Claim" ToRole="SubEvidence" />
         </EntityType>
         <EntityType Name="Question">
           <Key>
@@ -221,9 +240,9 @@
           <Property Name="Status" Type="Boolean" />
           <Property Name="CreateAt" Type="DateTime" Precision="3" />
           <Property Name="ModifiedAt" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="Claims" Relationship="StructuredDiscussionsModel.FK_Claim_Question" FromRole="Question" ToRole="Claim" />
-          <NavigationProperty Name="User" Relationship="StructuredDiscussionsModel.FK_Question_User" FromRole="Question" ToRole="User" />
-          <NavigationProperty Name="Votes" Relationship="StructuredDiscussionsModel.FK_Vote_Question" FromRole="Question" ToRole="Vote" />
+          <NavigationProperty Name="Claims" Relationship="Self.FK_Claim_Question" FromRole="Question" ToRole="Claim" />
+          <NavigationProperty Name="User" Relationship="Self.FK_Question_User" FromRole="Question" ToRole="User" />
+          <NavigationProperty Name="Votes" Relationship="Self.FK_Vote_Question" FromRole="Question" ToRole="Vote" />
         </EntityType>
         <EntityType Name="User">
           <Key>
@@ -237,9 +256,10 @@
           <Property Name="EmailId" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
           <Property Name="Status" Type="Boolean" />
           <Property Name="CreatedAt" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="Claims" Relationship="StructuredDiscussionsModel.FK_Claim_User" FromRole="User" ToRole="Claim" />
-          <NavigationProperty Name="Questions" Relationship="StructuredDiscussionsModel.FK_Question_User" FromRole="User" ToRole="Question" />
-          <NavigationProperty Name="Votes" Relationship="StructuredDiscussionsModel.FK_Vote_User" FromRole="User" ToRole="Vote" />
+          <NavigationProperty Name="Claims" Relationship="Self.FK_Claim_User" FromRole="User" ToRole="Claim" />
+          <NavigationProperty Name="Questions" Relationship="Self.FK_Question_User" FromRole="User" ToRole="Question" />
+          <NavigationProperty Name="Votes" Relationship="Self.FK_Vote_User" FromRole="User" ToRole="Vote" />
+          <NavigationProperty Name="SubEvidences" Relationship="StructuredDiscussionsModel.FK_SubEvidence_User1" FromRole="User" ToRole="SubEvidence" />
         </EntityType>
         <EntityType Name="Vote">
           <Key>
@@ -253,13 +273,13 @@
           <Property Name="CreatedAt" Type="DateTime" Precision="3" />
           <Property Name="Status" Type="Boolean" />
           <Property Name="Stance" Type="Boolean" />
-          <NavigationProperty Name="Claim" Relationship="StructuredDiscussionsModel.FK_Vote_Claim" FromRole="Vote" ToRole="Claim" />
-          <NavigationProperty Name="Question" Relationship="StructuredDiscussionsModel.FK_Vote_Question" FromRole="Vote" ToRole="Question" />
-          <NavigationProperty Name="User" Relationship="StructuredDiscussionsModel.FK_Vote_User" FromRole="Vote" ToRole="User" />
+          <NavigationProperty Name="Claim" Relationship="Self.FK_Vote_Claim" FromRole="Vote" ToRole="Claim" />
+          <NavigationProperty Name="Question" Relationship="Self.FK_Vote_Question" FromRole="Vote" ToRole="Question" />
+          <NavigationProperty Name="User" Relationship="Self.FK_Vote_User" FromRole="Vote" ToRole="User" />
         </EntityType>
         <Association Name="FK_Claim_Question">
-          <End Type="StructuredDiscussionsModel.Question" Role="Question" Multiplicity="0..1" />
-          <End Type="StructuredDiscussionsModel.Claim" Role="Claim" Multiplicity="*" />
+          <End Role="Question" Type="Self.Question" Multiplicity="0..1" />
+          <End Role="Claim" Type="Self.Claim" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Question">
               <PropertyRef Name="QuestionId" />
@@ -270,8 +290,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Claim_User">
-          <End Type="StructuredDiscussionsModel.User" Role="User" Multiplicity="0..1" />
-          <End Type="StructuredDiscussionsModel.Claim" Role="Claim" Multiplicity="*" />
+          <End Role="User" Type="Self.User" Multiplicity="0..1" />
+          <End Role="Claim" Type="Self.Claim" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="User">
               <PropertyRef Name="UserId" />
@@ -282,8 +302,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Vote_Claim">
-          <End Type="StructuredDiscussionsModel.Claim" Role="Claim" Multiplicity="0..1" />
-          <End Type="StructuredDiscussionsModel.Vote" Role="Vote" Multiplicity="*" />
+          <End Role="Claim" Type="Self.Claim" Multiplicity="0..1" />
+          <End Role="Vote" Type="Self.Vote" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Claim">
               <PropertyRef Name="ClaimId" />
@@ -294,8 +314,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Question_User">
-          <End Type="StructuredDiscussionsModel.User" Role="User" Multiplicity="0..1" />
-          <End Type="StructuredDiscussionsModel.Question" Role="Question" Multiplicity="*" />
+          <End Role="User" Type="Self.User" Multiplicity="0..1" />
+          <End Role="Question" Type="Self.Question" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="User">
               <PropertyRef Name="UserId" />
@@ -306,8 +326,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Vote_Question">
-          <End Type="StructuredDiscussionsModel.Question" Role="Question" Multiplicity="0..1" />
-          <End Type="StructuredDiscussionsModel.Vote" Role="Vote" Multiplicity="*" />
+          <End Role="Question" Type="Self.Question" Multiplicity="0..1" />
+          <End Role="Vote" Type="Self.Vote" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Question">
               <PropertyRef Name="QuestionId" />
@@ -318,13 +338,93 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Vote_User">
-          <End Type="StructuredDiscussionsModel.User" Role="User" Multiplicity="0..1" />
-          <End Type="StructuredDiscussionsModel.Vote" Role="Vote" Multiplicity="*" />
+          <End Role="User" Type="Self.User" Multiplicity="0..1" />
+          <End Role="Vote" Type="Self.Vote" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="User">
               <PropertyRef Name="UserId" />
             </Principal>
             <Dependent Role="Vote">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="StructuredDiscussionsEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Claims" EntityType="Self.Claim" />
+          <EntitySet Name="Questions" EntityType="Self.Question" />
+          <EntitySet Name="Users" EntityType="Self.User" />
+          <EntitySet Name="Votes" EntityType="Self.Vote" />
+          <AssociationSet Name="FK_Claim_Question" Association="Self.FK_Claim_Question">
+            <End Role="Question" EntitySet="Questions" />
+            <End Role="Claim" EntitySet="Claims" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Claim_User" Association="Self.FK_Claim_User">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Claim" EntitySet="Claims" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Vote_Claim" Association="Self.FK_Vote_Claim">
+            <End Role="Claim" EntitySet="Claims" />
+            <End Role="Vote" EntitySet="Votes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Question_User" Association="Self.FK_Question_User">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Question" EntitySet="Questions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Vote_Question" Association="Self.FK_Vote_Question">
+            <End Role="Question" EntitySet="Questions" />
+            <End Role="Vote" EntitySet="Votes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Vote_User" Association="Self.FK_Vote_User">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Vote" EntitySet="Votes" />
+          </AssociationSet>
+          <EntitySet Name="SubEvidences" EntityType="StructuredDiscussionsModel.SubEvidence" />
+          <AssociationSet Name="FK_SubEvidence_Claim1" Association="StructuredDiscussionsModel.FK_SubEvidence_Claim1">
+            <End Role="Claim" EntitySet="Claims" />
+            <End Role="SubEvidence" EntitySet="SubEvidences" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SubEvidence_User1" Association="StructuredDiscussionsModel.FK_SubEvidence_User1">
+            <End Role="User" EntitySet="Users" />
+            <End Role="SubEvidence" EntitySet="SubEvidences" />
+          </AssociationSet>
+          </EntityContainer>
+        <EntityType Name="SubEvidence">
+          <Key>
+            <PropertyRef Name="SubEvidenceId" />
+          </Key>
+          <Property Name="SubEvidenceId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ClaimId" Type="Int64" />
+          <Property Name="UserId" Type="Int64" />
+          <Property Name="SubEvidence1" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="Source" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="Stance" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="Rating" Type="Double" />
+          <Property Name="CreatedAt" Type="DateTime" Precision="3" />
+          <Property Name="Status" Type="Boolean" />
+          <Property Name="ModifiedAt" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Claim" Relationship="StructuredDiscussionsModel.FK_SubEvidence_Claim1" FromRole="SubEvidence" ToRole="Claim" />
+          <NavigationProperty Name="User" Relationship="StructuredDiscussionsModel.FK_SubEvidence_User1" FromRole="SubEvidence" ToRole="User" />
+        </EntityType>
+        <Association Name="FK_SubEvidence_Claim1">
+          <End Type="StructuredDiscussionsModel.Claim" Role="Claim" Multiplicity="0..1" />
+          <End Type="StructuredDiscussionsModel.SubEvidence" Role="SubEvidence" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Claim">
+              <PropertyRef Name="ClaimId" />
+            </Principal>
+            <Dependent Role="SubEvidence">
+              <PropertyRef Name="ClaimId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SubEvidence_User1">
+          <End Type="StructuredDiscussionsModel.User" Role="User" Multiplicity="0..1" />
+          <End Type="StructuredDiscussionsModel.SubEvidence" Role="SubEvidence" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="SubEvidence">
               <PropertyRef Name="UserId" />
             </Dependent>
           </ReferentialConstraint>
@@ -338,56 +438,72 @@
           <EntitySetMapping Name="Claims">
             <EntityTypeMapping TypeName="StructuredDiscussionsModel.Claim">
               <MappingFragment StoreEntitySet="Claim">
-                <ScalarProperty Name="ModifiedAt" ColumnName="ModifiedAt" />
-                <ScalarProperty Name="Status" ColumnName="Status" />
-                <ScalarProperty Name="CreatedAt" ColumnName="CreatedAt" />
-                <ScalarProperty Name="Rating" ColumnName="Rating" />
-                <ScalarProperty Name="Source" ColumnName="Source" />
-                <ScalarProperty Name="Evidence" ColumnName="Evidence" />
-                <ScalarProperty Name="Claim1" ColumnName="Claim" />
-                <ScalarProperty Name="UserId" ColumnName="UserId" />
-                <ScalarProperty Name="QuestionId" ColumnName="QuestionId" />
                 <ScalarProperty Name="ClaimId" ColumnName="ClaimId" />
+                <ScalarProperty Name="QuestionId" ColumnName="QuestionId" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="Claim1" ColumnName="Claim" />
+                <ScalarProperty Name="Evidence" ColumnName="Evidence" />
+                <ScalarProperty Name="Source" ColumnName="Source" />
+                <ScalarProperty Name="Rating" ColumnName="Rating" />
+                <ScalarProperty Name="CreatedAt" ColumnName="CreatedAt" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="ModifiedAt" ColumnName="ModifiedAt" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Questions">
             <EntityTypeMapping TypeName="StructuredDiscussionsModel.Question">
               <MappingFragment StoreEntitySet="Question">
-                <ScalarProperty Name="ModifiedAt" ColumnName="ModifiedAt" />
-                <ScalarProperty Name="CreateAt" ColumnName="CreateAt" />
-                <ScalarProperty Name="Status" ColumnName="Status" />
-                <ScalarProperty Name="Question1" ColumnName="Question" />
-                <ScalarProperty Name="UserId" ColumnName="UserId" />
                 <ScalarProperty Name="QuestionId" ColumnName="QuestionId" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="Question1" ColumnName="Question" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="CreateAt" ColumnName="CreateAt" />
+                <ScalarProperty Name="ModifiedAt" ColumnName="ModifiedAt" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Users">
             <EntityTypeMapping TypeName="StructuredDiscussionsModel.User">
               <MappingFragment StoreEntitySet="User">
-                <ScalarProperty Name="CreatedAt" ColumnName="CreatedAt" />
-                <ScalarProperty Name="Status" ColumnName="Status" />
-                <ScalarProperty Name="EmailId" ColumnName="EmailId" />
-                <ScalarProperty Name="LastName" ColumnName="LastName" />
-                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
-                <ScalarProperty Name="Password" ColumnName="Password" />
-                <ScalarProperty Name="UserName" ColumnName="UserName" />
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="EmailId" ColumnName="EmailId" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="CreatedAt" ColumnName="CreatedAt" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Votes">
             <EntityTypeMapping TypeName="StructuredDiscussionsModel.Vote">
               <MappingFragment StoreEntitySet="Vote">
+                <ScalarProperty Name="VoteId" ColumnName="VoteId" />
+                <ScalarProperty Name="ClaimId" ColumnName="ClaimId" />
+                <ScalarProperty Name="QuestionId" ColumnName="QuestionId" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="Vote1" ColumnName="Vote" />
+                <ScalarProperty Name="CreatedAt" ColumnName="CreatedAt" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
                 <ScalarProperty Name="Stance" ColumnName="Stance" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SubEvidences">
+            <EntityTypeMapping TypeName="StructuredDiscussionsModel.SubEvidence">
+              <MappingFragment StoreEntitySet="SubEvidence">
+                <ScalarProperty Name="ModifiedAt" ColumnName="ModifiedAt" />
                 <ScalarProperty Name="Status" ColumnName="Status" />
                 <ScalarProperty Name="CreatedAt" ColumnName="CreatedAt" />
-                <ScalarProperty Name="Vote1" ColumnName="Vote" />
+                <ScalarProperty Name="Rating" ColumnName="Rating" />
+                <ScalarProperty Name="Stance" ColumnName="Stance" />
+                <ScalarProperty Name="Source" ColumnName="Source" />
+                <ScalarProperty Name="SubEvidence1" ColumnName="SubEvidence" />
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
-                <ScalarProperty Name="QuestionId" ColumnName="QuestionId" />
                 <ScalarProperty Name="ClaimId" ColumnName="ClaimId" />
-                <ScalarProperty Name="VoteId" ColumnName="VoteId" />
+                <ScalarProperty Name="SubEvidenceId" ColumnName="SubEvidenceId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
