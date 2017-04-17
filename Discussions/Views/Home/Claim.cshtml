@@ -3,7 +3,6 @@
     ViewBag.Title = "Claim";
 }
 <style>
-
     .interestbuttons {
         font-family: Arial;
         font-size: 11px;
@@ -62,7 +61,7 @@
                                 <tbody>
                                     <tr>
                                         <th>Proposition: @ViewBag.question</th>
-                                        <th Width="10%"> 
+                                        <th Width="10%">
                                             Rating <select name="cars">
                                                 <option value="volvo">All</option>
                                                 <option value="volvo">1</option>
@@ -88,7 +87,7 @@
                                             <td colspan="2">
                                                 <button class="accordion fa fa-fw"> @item.Claim1 </button>
                                                 <div class="panelfor">
-                                                    <p>  <img src="~/AdminLte/dist/img/con-image.png" style="width:31px;margin-top:-3px" /> @item.Evidence</p>
+                                                    <p>  <img src="~/AdminLte/dist/img/con-image.png" style="width:20px;margin-top:-3px" /> @item.Evidence<span class="glyphicon glyphicon-plus" data-toggle="tooltip" title="Add your claim" onclick="addevidence(@item.ClaimId)"></span></p>
                                                     <div class="col-lg-3">
                                                         <div class="glyphicon glyphicon-thumbs-up top_alignment cursor" data-toggle="tooltip" title="I like this" onclick="vote(@item.QuestionId,@item.ClaimId,1,0,this)"><span class="interestbuttons" style="color:blue"> </span></div> &nbsp; &nbsp;
                                                         <div class="glyphicon glyphicon-thumbs-down top_alignment cursor" data-toggle="tooltip" title="I dislike this" onclick="vote(@item.QuestionId,@item.ClaimId,0,0,this)"><span class="interestbuttons" style="color:blue"> </span> </div>
@@ -99,14 +98,40 @@
                                                     <div class="col-lg-1 pull-right">
                                                         <div class="progress progress-xs">
                                                             <div class="progress-bar progress-bar-red" style="width: @item.Rating%"></div>
-                                                        </div> 
+                                                        </div>
+                                                    </div>
+                                                    <div class="subevidence">
+                                                        @foreach (var subevidence in item.SubEvidences)
+                                                        {
+                                                            <br />
+
+                                                            if (subevidence.Stance == "pro")
+                                                            {
+                                                                <p>
+                                                                    <img src="~/AdminLte/dist/img/pro-image.png" style="width:20px;margin-top:-3px" /> @subevidence.SubEvidence1 &nbsp; &nbsp;
+                                                                </p>
+                                                            }
+                                                            else {
+                                                                <p>
+                                                                    <img src="~/AdminLte/dist/img/con-image.png" style="width:20px;margin-top:-3px" /> @subevidence.SubEvidence1 &nbsp; &nbsp;
+                                                                </p>
+                                                            }
+                                                            <div class="col-lg-3">
+                                                                <div class="glyphicon glyphicon-thumbs-up top_alignment cursor" data-toggle="tooltip" title="I like this"><span class="interestbuttons" style="color:blue"> </span></div> &nbsp; &nbsp;
+                                                                <div class="glyphicon glyphicon-thumbs-down top_alignment cursor" data-toggle="tooltip" title="I dislike this"><span class="interestbuttons" style="color:blue"></span></div>
+                                                            </div>
+                                                            <div class="col-lg-2"> <span><b>Source: </b> </span>@subevidence.Source</div>
+                                                            <div class="col-lg-2"> <span><b>User: </b> </span>Test</div>
+                                                            <div class="col-lg-2"> <span><b>Date: </b> </span>@subevidence.CreatedAt</div>
+                                                                <div class="col-lg-1 pull-right">
+                                                                    <div class="progress progress-xs">
+                                                                        <div class="progress-bar progress-bar-green" style="width:  @subevidence.Rating%"></div>
+                                                                    </div>
+                                                                </div>
+                                                        }
                                                     </div>
                                                 </div>
                                             </td>
-
-
-
-
                                         </tr>
                                     }
                                     <tr>
@@ -119,27 +144,61 @@
                                         <tr>
                                             <td colspan="2">
                                                 <button class="accordion fa fa-fw"> @item.Claim1</button>
-                                                <div class="panelfor"> @*<span class="fa fa-fw fa-angle-double-up"> </span>*@ 
-                                                    <p> <img src="~/AdminLte/dist/img/pro-image.png" style="width:31px;margin-top:-3px" /> @item.Evidence</p>
-                                                    <div class="col-lg-3">
-                                                        <div class="glyphicon glyphicon-thumbs-up top_alignment cursor" data-toggle="tooltip" title="I like this" onclick="vote(@item.QuestionId,@item.ClaimId,1,1,this)"><span class="interestbuttons" style="color:blue"> </span></div> &nbsp; &nbsp;
-                                                        <div class="glyphicon glyphicon-thumbs-down top_alignment cursor" data-toggle="tooltip" title="I dislike this" onclick="vote(@item.QuestionId,@item.ClaimId,0,1,this)"><span class="interestbuttons" style="color:blue"></span></div>
-                                                    </div>
-                                                    <div class="col-lg-2"> <span><b>Source: </b> </span>@item.Source</div>
-                                                    <div class="col-lg-2"> <span><b>User: </b> </span>Test</div>
-                                                    <div class="col-lg-2"> <span><b>Date: </b> </span>@item.CreatedAt</div>
-                                                    <div class="col-lg-1 pull-right">
-                                                        <div class="progress progress-xs">
-                                                            <div class="progress-bar progress-bar-green" style="width:  @item.Rating%"></div>
+                                                <div class="panelfor">
+                                                    @*<span class="fa fa-fw fa-angle-double-up"> </span>*@
+                                                    <div class="evidence">
+                                                        <p> <img src="~/AdminLte/dist/img/pro-image.png" style="width:20px;margin-top:-3px" /> @item.Evidence &nbsp;&nbsp;<span class="glyphicon glyphicon-plus" data-toggle="tooltip" title="Add your claim" onclick="addevidence(@item.ClaimId)"></span></p>
+                                                        <div class="col-lg-3">
+                                                            <div class="glyphicon glyphicon-thumbs-up top_alignment cursor" data-toggle="tooltip" title="I like this" onclick="vote(@item.QuestionId,@item.ClaimId,1,1,this)"><span class="interestbuttons" style="color:blue"> </span></div> &nbsp; &nbsp;
+                                                            <div class="glyphicon glyphicon-thumbs-down top_alignment cursor" data-toggle="tooltip" title="I dislike this" onclick="vote(@item.QuestionId,@item.ClaimId,0,1,this)"><span class="interestbuttons" style="color:blue"></span></div>
                                                         </div>
+                                                        <div class="col-lg-2"> <span><b>Source: </b> </span>@item.Source</div>
+                                                        <div class="col-lg-2"> <span><b>User: </b> </span>Test</div>
+                                                        <div class="col-lg-2"> <span><b>Date: </b> </span>@item.CreatedAt</div>
+                                                        <div class="col-lg-1 pull-right">
+                                                            <div class="progress progress-xs">
+                                                                <div class="progress-bar progress-bar-green" style="width:  @item.Rating%"></div>
+                                                            </div>
                                                         </div>
                                                     </div>
+                                                    <div class="subevidence">
+                                                        @foreach (var subevidence in item.SubEvidences)
+                                                        {
+                                                            <br />
+
+                                                            if (subevidence.Stance == "pro")
+                                                            {
+                                                                <p>
+                                                                    <img src="~/AdminLte/dist/img/pro-image.png" style="width:20px;margin-top:-3px" /> @subevidence.SubEvidence1 &nbsp; &nbsp;
+                                                                </p>
+                                                            }
+                                                            else {
+                                                                <p>
+                                                                    <img src="~/AdminLte/dist/img/con-image.png" style="width:20px;margin-top:-3px" /> @subevidence.SubEvidence1 &nbsp; &nbsp;
+                                                                </p>
+                                                            }
+                                                            <div class="col-lg-3">
+                                                                <div class="glyphicon glyphicon-thumbs-up top_alignment cursor" data-toggle="tooltip" title="I like this"><span class="interestbuttons" style="color:blue"> </span></div> &nbsp; &nbsp;
+                                                                <div class="glyphicon glyphicon-thumbs-down top_alignment cursor" data-toggle="tooltip" title="I dislike this"><span class="interestbuttons" style="color:blue"></span></div>
+                                                            </div>
+                                                            <div class="col-lg-2"> <span><b>Source: </b> </span>@subevidence.Source</div>
+                                                            <div class="col-lg-2"> <span><b>User: </b> </span>Test</div>
+                                                                <div class="col-lg-2"> <span><b>Date: </b> </span>@subevidence.CreatedAt</div>
+                                                                <div class="col-lg-1 pull-right">
+                                                                    <div class="progress progress-xs">
+                                                                        <div class="progress-bar progress-bar-green" style="width:  @subevidence.Rating%"></div>
+                                                                    </div>
+                                                                </div>
+                                                        }
+                                                    </div>
+
+                                                </div>
                                             </td>
                                             @*<td Width="10%">
-                                                <div class="progress progress-xs">
-                                                    <div class="progress-bar progress-bar-green" style="width:  @item.Rating%"></div>
-                                                </div>
-                                            </td>*@
+                                                    <div class="progress progress-xs">
+                                                        <div class="progress-bar progress-bar-green" style="width:  @item.Rating%"></div>
+                                                    </div>
+                                                </td>*@
                                         </tr>
                                     }
                                 </tbody>
@@ -204,6 +263,48 @@
             @Html.Hidden("Status", "", new { id = "statusvalue" })
             <div class="modal-footer">
                 <button type="submit" class="btn btn-info">Submit</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="myModalevidence" role="dialog">
+    <div class="modal-dialog ">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Support your evidence</h4>
+            </div>
+            <div class="modal-body">
+                <div class="">
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <div class="">
+                                <div class="form-group">
+                                    @Html.Hidden("claimid", "", new { id = "claimid" })
+                                    <label>Evidence</label>
+                                    @Html.TextArea("SubEvidence", new { @class = "form-control" })
+                                </div>
+                                <div class="form-group">
+                                    <label>source</label>
+                                    @Html.TextBox("SubEvidenceSource", "", new { @class = "form-control" })
+                                </div>
+                                <div class="form-group">
+                                    <p>
+                                        <input type="radio" name="stance" value="pro" id="pro" checked> Pro
+                                        <input type="radio" name="stance" value="con" id="con"> Con<br>
+                                    </p>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-info" onclick="submitevidence()">Submit</button>
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
             </div>
         </div>
@@ -311,29 +412,58 @@
         });
     }
 
-    function vote(questionid, claimid,status, stance, div)
-    {
 
-        //var parent = div.className;
-        //console.log(data);
-        //console.log(parent);
-        //this('.parent').removeClass('active');
-        // $(parent).addClass('active');
+    function addevidence(i) {
+        // alert(i);
+        var status = true;
+        if (i == 0) {
+            status = false;
+        }
+        //   $("#statusvalue").val(status);
+        $('#claimid').val(i);
+        $('#myModalevidence').modal('show');
+    }
+
+    function submitevidence() {
+        var subevidence = $('#SubEvidence').val();
+        var subevidencesource = $('#SubEvidenceSource').val();
+        var claimid = $('#claimid').val();
+        var stance = "pro";
+        if ($("#pro").is(':checked')) {
+            stance = "pro";
+        } else {
+            stance = "con";
+        }
+        $.ajax({
+            type: "POST",
+            url: "../home/subevidence",
+            data: { claimid: claimid, subevidence: subevidence, subevidencesource: subevidencesource, stance: stance },
+            dataType: "json",
+            success: function (data) {
+                debugger;
+                location.reload();
+            },
+            error: function (result) {
+                alert(result);
+            }
+        });
+
+    }
+
+    function vote(questionid, claimid, status, stance, div) {
         debugger;
         var status_ = true;
-        if(status == 0)
-        {
+        if (status == 0) {
             status_ = false;
         }
         var stance_ = true;
-        if(stance == 0)
-        {
+        if (stance == 0) {
             stance_ = false;
         }
         $.ajax({
             type: "POST",
             url: "../home/vote",
-            data: { questionid : questionid , claimid: claimid, status: status_, stance:stance_},
+            data: { questionid: questionid, claimid: claimid, status: status_, stance: stance_ },
             dataType: "json",
             success: function (data) {
                 debugger;
