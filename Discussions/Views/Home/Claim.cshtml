@@ -3,6 +3,9 @@
     ViewBag.Title = "Claim";
 }
 <style>
+    .image_size {
+    font-size:x-small;
+    }
     .interestbuttons {
         font-family: Arial;
         font-size: 11px;
@@ -87,7 +90,7 @@
                                             <td colspan="2">
                                                 <button class="accordion fa fa-fw"> @item.Claim1 </button>
                                                 <div class="panelfor">
-                                                    <p>  <img src="~/AdminLte/dist/img/con-image.png" style="width:20px;margin-top:-3px" /> @item.Evidence<span class="glyphicon glyphicon-plus" data-toggle="tooltip" title="Add your claim" onclick="addevidence(@item.ClaimId)"></span></p>
+                                                    <p>  <img src="~/AdminLte/dist/img/con-image.png" style="width:28px;margin-top:-3px" /> @item.Evidence<span class="glyphicon glyphicon-plus image_size" data-toggle="tooltip" title="Add your evidence" onclick="addevidence(@item.ClaimId)"></span></p>
                                                     <div class="col-lg-3">
                                                         <div class="glyphicon glyphicon-thumbs-up top_alignment cursor" data-toggle="tooltip" title="I like this" onclick="vote(@item.QuestionId,@item.ClaimId,1,0,this)"><span class="interestbuttons" style="color:blue"> </span></div> &nbsp; &nbsp;
                                                         <div class="glyphicon glyphicon-thumbs-down top_alignment cursor" data-toggle="tooltip" title="I dislike this" onclick="vote(@item.QuestionId,@item.ClaimId,0,0,this)"><span class="interestbuttons" style="color:blue"> </span> </div>
@@ -108,12 +111,12 @@
                                                             if (subevidence.Stance == "pro")
                                                             {
                                                                 <p>
-                                                                    <img src="~/AdminLte/dist/img/pro-image.png" style="width:20px;margin-top:-3px" /> @subevidence.SubEvidence1 &nbsp; &nbsp;
+                                                                    <img src="~/AdminLte/dist/img/pro-image.png" style="width:28px;margin-top:-3px" /> @subevidence.SubEvidence1 &nbsp; &nbsp;
                                                                 </p>
                                                             }
                                                             else {
                                                                 <p>
-                                                                    <img src="~/AdminLte/dist/img/con-image.png" style="width:20px;margin-top:-3px" /> @subevidence.SubEvidence1 &nbsp; &nbsp;
+                                                                    <img src="~/AdminLte/dist/img/con-image.png" style="width:28px;margin-top:-3px" /> @subevidence.SubEvidence1 &nbsp; &nbsp;
                                                                 </p>
                                                             }
                                                             <div class="col-lg-3">
@@ -147,7 +150,7 @@
                                                 <div class="panelfor">
                                                     @*<span class="fa fa-fw fa-angle-double-up"> </span>*@
                                                     <div class="evidence">
-                                                        <p> <img src="~/AdminLte/dist/img/pro-image.png" style="width:20px;margin-top:-3px" /> @item.Evidence &nbsp;&nbsp;<span class="glyphicon glyphicon-plus" data-toggle="tooltip" title="Add your claim" onclick="addevidence(@item.ClaimId)"></span></p>
+                                                        <p> <img src="~/AdminLte/dist/img/pro-image.png" style="width:28px;margin-top:-3px" /> @item.Evidence &nbsp;&nbsp;<span class="glyphicon glyphicon-plus image_size" data-toggle="tooltip" title="Add your evidence" onclick="addevidence(@item.ClaimId)"></span></p>
                                                         <div class="col-lg-3">
                                                             <div class="glyphicon glyphicon-thumbs-up top_alignment cursor" data-toggle="tooltip" title="I like this" onclick="vote(@item.QuestionId,@item.ClaimId,1,1,this)"><span class="interestbuttons" style="color:blue"> </span></div> &nbsp; &nbsp;
                                                             <div class="glyphicon glyphicon-thumbs-down top_alignment cursor" data-toggle="tooltip" title="I dislike this" onclick="vote(@item.QuestionId,@item.ClaimId,0,1,this)"><span class="interestbuttons" style="color:blue"></span></div>
@@ -169,12 +172,12 @@
                                                             if (subevidence.Stance == "pro")
                                                             {
                                                                 <p>
-                                                                    <img src="~/AdminLte/dist/img/pro-image.png" style="width:20px;margin-top:-3px" /> @subevidence.SubEvidence1 &nbsp; &nbsp;
+                                                                    <img src="~/AdminLte/dist/img/pro-image.png" style="width:28px;margin-top:-3px" /> @subevidence.SubEvidence1 &nbsp; &nbsp;
                                                                 </p>
                                                             }
                                                             else {
                                                                 <p>
-                                                                    <img src="~/AdminLte/dist/img/con-image.png" style="width:20px;margin-top:-3px" /> @subevidence.SubEvidence1 &nbsp; &nbsp;
+                                                                    <img src="~/AdminLte/dist/img/con-image.png" style="width:28px;margin-top:-3px" /> @subevidence.SubEvidence1 &nbsp; &nbsp;
                                                                 </p>
                                                             }
                                                             <div class="col-lg-3">
@@ -275,7 +278,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">Support your evidence</h4>
+                <h4 class="modal-title">Support your claim</h4>
             </div>
             <div class="modal-body">
                 <div class="">
