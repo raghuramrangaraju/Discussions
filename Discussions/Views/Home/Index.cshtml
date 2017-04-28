@@ -111,28 +111,59 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">Feel free to ask question </h4>
+                <h4 class="modal-title">Add Stance</h4>
             </div>
             <div class="modal-body">
                 <div class="">
-                    <div class="row">
+                    <div class="row" id="dynamicStance">
                         <div class="col-xs-12">
-                            <div class="box box-primary">
-                                <div class="form-group">
-
-
-                                    @Html.TextBox("question", "", new { @class = "form-control" })
+                            <div class="row">
+                                <div class="col-lg-3">
+                                    <div class="form-group">
+                                        <label>Stance 1:</label>
+                                    </div>
                                 </div>
-                                <!-- /.box-header -->
-                                <!-- /.box-body -->
+                                <div class="col-lg-3">
+                                    <div class="form-group">
+                                        @Html.TextBox("Stance", "Yes", new { @class = "form-control" })
+                                    </div>
+                                </div>
+                                <div class="col-lg-5">
+                                    <div class="form-group">
+                                        @*@Html.TextBox("description", "", new { @class = "form-control" , @placeholder="Description (Optional)"})*@
+                                    </div>
+                                </div>
                             </div>
+                            <div class="row">
+                                <div class="col-lg-3">
+                                    <div class="form-group">
+                                        <label>Stance 2:</label>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3">
+                                    <div class="form-group">
+                                        @Html.TextBox("Stance", "No", new { @class = "form-control" })
+                                    </div>
+                                </div>
+                                <div class="col-lg-5">
+                                    <div class="form-group">
+                                        @*@Html.TextBox("description", "", new { @class = "form-control", @placeholder = "Description (Optional)" })*@
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="extraStance">
+
+                            </div>
+                            <input type="button" class="btn btn-primary" value="Add Stance" onclick="extraStance()"/>
+
+
                             <!-- /.box -->
                         </div>
                     </div>
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-info" onclick="checkresult()">Check Result </button>
+                <button type="button" class="btn btn-info" onclick="questionsubmit()">Submit</button>
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
             </div>
         </div>
@@ -140,17 +171,41 @@
 </div>
 
 <script type="text/javascript">
+    var num = 3;
+    function extraStance() {
+        // <input class=\"form-control\" id=\"description\" name=\"description\" placeholder=\"Description (Optional)\" type=\"text\" value=\"\" />
+        var stringappend = "<div class=\"row\"><div class=\"col-lg-3\"><div class=\"form-group\"><label>Stance " + num + ":</label></div></div><div class=\"col-lg-3\">"
+        stringappend += "<div class=\"form-group\"><input class=\"form-control\" id=\"question\" name=\"question\" type=\"text\"  /></div></div><div class=\"col-lg-5\">"
+        stringappend += "<div class=\"form-group\"></div></div></div>"
+        $("#extraStance").append(stringappend);
+        num++;
+    }
+
+
 
     function addquestion() {
         $('#myModal').modal('show');
     }
     function askquestion() {
+        $('#myModal').modal('show');
+     
+
+    }
+
+    function questionsubmit() {
         var question = $('#askquestion').val();
+        var dynamicStance = "";
+        $("#dynamicStance :text").each(function () {
+            dynamicStance += $(this).val() + "$";
+        });
+
+        alert(Contain);
+
         if (question != "") {
             $.ajax({
                 type: "POST",
                 url: "../home/askquestion",
-                data: { question: question },
+                data: { question: question, Stance: dynamicStance },
                 dataType: "json",
                 beforeSend: function (xhr) {
                     //$('#LoadingImage').show();
@@ -184,5 +239,7 @@
         else {
             alert("Please enter some value");
         }
+
     }
+
 </script>
