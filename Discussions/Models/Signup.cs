@@ -12,4 +12,14 @@ namespace Discussions.Models
         public string email { get; set; }
         public string password { get; set; }
     }
+    
+
+    public class claimstance
+    {
+        public List<Claim> Claim { get; set; }
+        public long StanceTypeId { get; set; }
+        public string StanceTypeName { get; set; }
+        public Nullable<long> QuestionId { get; set; }
+    }
+
 }
