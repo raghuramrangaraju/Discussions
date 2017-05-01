@@ -66,21 +66,98 @@
                                         <th>Proposition: @ViewBag.question</th>
                                         <th Width="10%">
                                             Rating <select name="cars">
-                                                <option value="volvo">All</option>
-                                                <option value="volvo">1</option>
-                                                <option value="saab">2</option>
-                                                <option value="fiat">3</option>
-                                                <option value="audi">4</option>
-                                                <option value="audi">5</option>
-                                                <option value="audi">6</option>
-                                                <option value="audi">7</option>
-                                                <option value="audi">8</option>
-                                                <option value="audi">9</option>
-                                                <option value="audi">10</option>
+                                                <option value="0">All</option>
+                                                <option value="1">1</option>
+                                                <option value="2">2</option>
+                                                <option value="3">3</option>
+                                                <option value="4">4</option>
+                                                <option value="5">5</option>
+                                                <option value="6">6</option>
+                                                <option value="7">7</option>
+                                                <option value="8">8</option>
+                                                <option value="9">9</option>
+                                                <option value="10">10</option>
                                             </select>
                                         </th>
                                     </tr>
+                                @foreach (var item in ViewBag.dynamicstance as List<Discussions.Models.claimstance>)
+                                  {
                                     <tr>
+                                        @if (item.StanceTypeName == "Yes")
+                                        {
+                                            <td colspan="2" class="stance_yes"><span class="top_alignment"></span> STANCE: @item.StanceTypeName &nbsp;&nbsp;<span class="glyphicon glyphicon-plus " data-toggle="tooltip" title="Add your claim" onclick="addmodal(@item.StanceTypeId)"></span></td>
+                                        }
+                                        else {
+                                            <td colspan="2" class="stance_no"><span class="top_alignment"></span> STANCE: @item.StanceTypeName &nbsp;&nbsp;<span class="glyphicon glyphicon-plus " data-toggle="tooltip" title="Add your claim" onclick="addmodal(@item.StanceTypeId)"></span></td>
+                                        }
+                                    </tr>
+                                    foreach (var claim in item.Claim)
+                                    {
+                                        <tr>
+
+                                            <td colspan="2">
+                                                <button class="accordion fa fa-fw"> @claim.Claim1 </button>
+                                                <div class="panelfor">
+                                                    @if (@claim.Stance == "pro")
+                                                    {
+                                                        <p>  <img src="~/AdminLte/dist/img/pro-image.png" style="width:28px;margin-top:-3px" /> @claim.Evidence<span class="glyphicon glyphicon-plus image_size" data-toggle="tooltip" title="Add your evidence" onclick="addevidence(@claim.ClaimId)"></span></p>
+                                                    }
+                                                    else
+                                                    {
+                                                        <p>  <img src="~/AdminLte/dist/img/con-image.png" style="width:28px;margin-top:-3px" /> @claim.Evidence<span class="glyphicon glyphicon-plus image_size" data-toggle="tooltip" title="Add your evidence" onclick="addevidence(@claim.ClaimId)"></span></p>
+                                                    }
+                                                    
+                                                    <div class="col-lg-3">
+                                                        <div class="glyphicon glyphicon-thumbs-up top_alignment cursor" data-toggle="tooltip" title="I like this" onclick="vote(@item.QuestionId,@claim.ClaimId,1,0,this)"><span class="interestbuttons" style="color:blue"> </span></div> &nbsp; &nbsp;
+                                                        <div class="glyphicon glyphicon-thumbs-down top_alignment cursor" data-toggle="tooltip" title="I dislike this" onclick="vote(@item.QuestionId,@claim.ClaimId,0,0,this)"><span class="interestbuttons" style="color:blue"> </span> </div>
+                                                    </div>
+                                                    <div class="col-lg-2"> <span><b>Source: </b> </span>@claim.Source</div>
+                                                    <div class="col-lg-2"> <span><b>User: </b> </span> <a href="#" data-toggle="popover" data-html="true" data-container="body" title="<b>@claim.User.FirstName</b>" data-content="Email: @claim.User.EmailId" data-trigger="hover">@claim.User.FirstName</a></div>
+                                                    <div class="col-lg-2"> <span><b>Date: </b> </span>@claim.CreatedAt.Value.ToLocalTime()</div>
+                                                    <div class="col-lg-1 pull-right">
+                                                        <div class="progress progress-xs">
+                                                            <div class="progress-bar progress-bar-red" style="width: @claim.Rating%"></div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="subevidence">
+                                                        @foreach (var subevidence in claim.SubEvidences)
+                                                        {
+                                                            <br />
+                                                            <div class="row col-lg-12">
+
+                                                                @if (subevidence.Stance == "pro")
+                                                                {
+                                                                <p>
+                                                                    <img src="~/AdminLte/dist/img/pro-image.png" style="width:28px;margin-top:-3px" /> @subevidence.SubEvidence1 &nbsp; &nbsp;
+                                                                </p>
+                                                                }
+                                                                else {
+                                                                <p>
+                                                                    <img src="~/AdminLte/dist/img/con-image.png" style="width:28px;margin-top:-3px" /> @subevidence.SubEvidence1 &nbsp; &nbsp;
+                                                                </p>
+                                                                }
+                                                            </div>
+                                                            <div class="col-lg-3">
+                                                                <div class="glyphicon glyphicon-thumbs-up top_alignment cursor" data-toggle="tooltip" title="I like this"><span class="interestbuttons" style="color:blue"> </span></div> &nbsp; &nbsp;
+                                                                <div class="glyphicon glyphicon-thumbs-down top_alignment cursor" data-toggle="tooltip" title="I dislike this"><span class="interestbuttons" style="color:blue"></span></div>
+                                                            </div>
+                                                            <div class="col-lg-2"> <span><b>Source: </b> </span>@subevidence.Source</div>
+                                                            <div class="col-lg-2"> <span><b>User: </b> </span>Test</div>
+                                                            <div class="col-lg-2"> <span><b>Date: </b> </span>@subevidence.CreatedAt</div>
+                                                            <div class="col-lg-1 pull-right">
+                                                                <div class="progress progress-xs">
+                                                                    <div class="progress-bar progress-bar-green" style="width:  @subevidence.Rating%"></div>
+                                                                </div>
+                                                            </div>
+                                                        }
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    }
+                                }
+                                     @*// -  Old coding --*@ 
+                                    @*<tr>
                                         <td colspan="2" class="stance_no"><span class="top_alignment"></span> STANCE: NO &nbsp;&nbsp;<span class="glyphicon glyphicon-plus " data-toggle="tooltip" title="Add your claim" onclick="addmodal(0)"></span></td>
                                     </tr>
                                     @foreach (var item in ViewBag.notance as List<Discussions.Models.Claim>)
@@ -137,6 +214,8 @@
                                             </td>
                                         </tr>
                                     }
+
+
                                     <tr>
                                         <td colspan="2" class="stance_yes">
                                             <span class="top_alignment"></span> STANCE: YES &nbsp;&nbsp;<span class="glyphicon glyphicon-plus" data-toggle="tooltip" title="Add your claim" onclick="addmodal(1)" />
@@ -148,7 +227,6 @@
                                             <td colspan="2">
                                                 <button class="accordion fa fa-fw"> @item.Claim1</button>
                                                 <div class="panelfor">
-                                                    @*<span class="fa fa-fw fa-angle-double-up"> </span>*@
                                                     <div class="evidence">
                                                         <p> <img src="~/AdminLte/dist/img/pro-image.png" style="width:28px;margin-top:-3px" /> @item.Evidence &nbsp;&nbsp;<span class="glyphicon glyphicon-plus image_size" data-toggle="tooltip" title="Add your evidence" onclick="addevidence(@item.ClaimId)"></span></p>
                                                         <div class="col-lg-3">
@@ -194,16 +272,12 @@
                                                                 </div>
                                                         }
                                                     </div>
-
                                                 </div>
                                             </td>
-                                            @*<td Width="10%">
-                                                    <div class="progress progress-xs">
-                                                        <div class="progress-bar progress-bar-green" style="width:  @item.Rating%"></div>
-                                                    </div>
-                                                </td>*@
                                         </tr>
-                                    }
+                                    }*@
+
+
                                 </tbody>
                             </table>
                         </div>
@@ -212,15 +286,11 @@
                 </div>
                 <!-- /.tab-pane -->
                 <div class="tab-pane" id="tab_2">
-                    The European languages are members of the same family. Their separate existence is a myth. For science, music, sport, etc, Europe uses the same vocabulary. The languages only differ in their grammar, their pronunciation and their
-                    most common words. Everyone realizes why a new common language would be desirable: one could refuse to pay expensive translators. To achieve this, it would be necessary to have uniform grammar, pronunciation and more common
-                    words. If several languages coalesce, the grammar of the resulting language is more simple and regular than that of the individual languages.
+                    <b>To be Added</b>
                 </div>
                 <!-- /.tab-pane -->
                 <div class="tab-pane" id="tab_3">
-                    Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type
-                    specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum
-                    passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+                    <b>To be Added</b>
                 </div>
                 <!-- /.tab-pane -->
             </div>
@@ -256,6 +326,12 @@
                                     <label>source</label>
                                     @Html.TextBoxFor(x => x.Source, new { @class = "form-control" })
                                 </div>
+                                <div class="form-group">
+                                    <p>
+                                        <input type="radio" name="claimcheckbox" value="pro" id="claimpro" checked> Pro
+                                        <input type="radio" name="claimcheckbox" value="con" id="claimcon"> Con<br>
+                                    </p>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -263,7 +339,7 @@
             </div>
             @{int dc = ViewBag.questionid;}
             @Html.Hidden("QuestionId", dc)
-            @Html.Hidden("Status", "", new { id = "statusvalue" })
+            @Html.Hidden("StanceTypeId", "", new { id = "StanceTypeId" })
             <div class="modal-footer">
                 <button type="submit" class="btn btn-info">Submit</button>
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -271,7 +347,7 @@
         </div>
     </div>
 </div>
-
+}
 <div class="modal fade" id="myModalevidence" role="dialog">
     <div class="modal-dialog ">
         <!-- Modal content-->
@@ -313,7 +389,7 @@
         </div>
     </div>
 </div>
-}
+
 
 <script src="http://cdn.jsdelivr.net/qtip2/3.0.3/jquery.qtip.min.js"></script>
 <link rel="stylesheet" href="http://cdn.jsdelivr.net/qtip2/3.0.3/jquery.qtip.min.css">
@@ -370,11 +446,8 @@
     });
 
     function addmodal(i) {
-        var status = true;
-        if (i == 0) {
-            status = false;
-        }
-        $("#statusvalue").val(status);
+        var stancetype =i ;
+        $("#StanceTypeId").val(stancetype);
         $('#myModal').modal('show');
     }
     function submitclaim() {
