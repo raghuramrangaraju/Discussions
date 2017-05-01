@@ -17,13 +17,15 @@ namespace Discussions.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Claim()
         {
-            this.Votes = new HashSet<Vote>();
             this.SubEvidences = new HashSet<SubEvidence>();
+            this.Votes = new HashSet<Vote>();
         }
     
         public long ClaimId { get; set; }
         public Nullable<long> QuestionId { get; set; }
         public Nullable<long> UserId { get; set; }
+        public Nullable<long> StanceTypeId { get; set; }
+        public string Stance { get; set; }
         public string Claim1 { get; set; }
         public string Evidence { get; set; }
         public string Source { get; set; }
@@ -33,10 +35,11 @@ namespace Discussions.Models
         public Nullable<System.DateTime> ModifiedAt { get; set; }
     
         public virtual Question Question { get; set; }
+        public virtual StanceType StanceType { get; set; }
         public virtual User User { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Vote> Votes { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SubEvidence> SubEvidences { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Vote> Votes { get; set; }
     }
 }

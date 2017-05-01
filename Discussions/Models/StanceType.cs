@@ -12,29 +12,23 @@ namespace Discussions.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Question
+    public partial class StanceType
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Question()
+        public StanceType()
         {
             this.Claims = new HashSet<Claim>();
-            this.StanceTypes = new HashSet<StanceType>();
-            this.Votes = new HashSet<Vote>();
         }
     
-        public long QuestionId { get; set; }
-        public Nullable<long> UserId { get; set; }
-        public string Question1 { get; set; }
+        public long StanceTypeId { get; set; }
+        public string StanceTypeName { get; set; }
+        public Nullable<long> QuestionId { get; set; }
+        public string Description { get; set; }
         public Nullable<bool> Status { get; set; }
-        public Nullable<System.DateTime> CreateAt { get; set; }
-        public Nullable<System.DateTime> ModifiedAt { get; set; }
+        public Nullable<System.DateTime> CreatedAt { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Claim> Claims { get; set; }
-        public virtual User User { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<StanceType> StanceTypes { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Vote> Votes { get; set; }
+        public virtual Question Question { get; set; }
     }
 }
