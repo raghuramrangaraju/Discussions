@@ -199,8 +199,6 @@
             dynamicStance += $(this).val() + "$";
         });
 
-        alert(Contain);
-
         if (question != "") {
             $.ajax({
                 type: "POST",
@@ -217,12 +215,14 @@
                         newquestion += "<div class=\"votes\"><div class=\"mini-counts\"><span title=\"0 votes\">0</span></div><div>votes</div></div></div><div class=\"col-lg-2 col-xs-1\">";
                         newquestion += "<div class=\"votes\"><div class=\"mini-counts\"><span title=\"0 answers\">0</span></div><div>answers</div></div></div><div class=\"col-lg-2 col-xs-1\"><div class=\"votes\">";
                         newquestion += "<div class=\"mini-counts\"><span title=\"0 views\">5</span></div><div>views</div></div></div>";
-                        newquestion += "</div><div class=\"col-lg-8\"><a href=\"../home/claim?QuestionId=+" + data.QuestionId + "\" class=\"product-title\">" + question + "</a><span class=\"pull-right\">asked Value by UserName </span></div>";
+                        newquestion += "</div><div class=\"col-lg-8\"><a href=\"../home/claim?QuestionId=+" + data + "\" class=\"product-title\">" + question + "</a><span class=\"pull-right\">asked Value by UserName </span></div>";
                         newquestion += "</div></div></li>";
                         $("#question").prepend(newquestion);
                         $('#askquestion').val('');
+                        $('#myModal').modal('hide');
                     }
                     else {
+                        debugger;
                         alert("Error")
                     }
                 },
