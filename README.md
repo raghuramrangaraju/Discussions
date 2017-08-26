@@ -7,10 +7,10 @@ As the name suggests, It proposes a framework that levarages the power of crowds
   -  Login screen
 ![alt text](https://github.com/rahuram777/Discussions/blob/master/Discussions/Screenshots/Discussions1.png)
 
-  -  When you login successfully. You could able to see the main screen which questions are raised by the Users.  
+  -  When you login successfully. You could able to see the main screen where the questions are raised by the Users.  
 ![alt text](https://github.com/rahuram777/Discussions/blob/master/Discussions/Screenshots/Discussions2.png)
 
--  Next when you click on any of the questions. You would able to see the discussion page where many people added their claim. 
+-  Next when you click on any of the questions. You could able to see the discussion page where many people added their claim. 
 ![alt text](https://github.com/rahuram777/Discussions/blob/master/Discussions/Screenshots/Discussions3.png)
   - Then you can express your interest by clicking like or dislike button. Or could able to support the stance by providing a new claim by clicking + button near the respective stances. 
 ![alt text](https://github.com/rahuram777/Discussions/blob/master/Discussions/Screenshots/Discussions4.png)
