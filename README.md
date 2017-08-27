@@ -1,5 +1,5 @@
 # Discussions or Verify Alt facts
-As the name suggests, It proposes a framework that levarages the power of crowds to help verify alternative facts and thus helps counter the dissemination of fake news. The prototype helps us to validate proposed alternative facts.
+As the name suggests, It proposes a framework that leverages the power of crowds to help verify alternative facts and thus helps counter the dissemination of fake news. The prototype helps us to validate proposed alternative facts.
 
 
 ### Screen shots
